@@ -12,7 +12,6 @@ class Build_Notification_init(building_notification.Ui_MainWindow, QtWidgets.QMa
         super(Build_Notification_init, self).__init__()
         self.setupUi(self)
         self.enter_path_btn.clicked.connect(lambda: self.enter_path.setText(pathDialog(self)))  # Select Path
-        #self.start_btn.clicked.connect(lambda: send_params(self, self.enter_enail.text(), self.enter_enail_pass.text(), self.enter_path.text()))
         self.start_btn.clicked.connect(lambda: params_ini(self))
 
     #Close Event
@@ -27,15 +26,6 @@ class Build_Notification_init(building_notification.Ui_MainWindow, QtWidgets.QMa
         else:
             event.ignore()
 
-# def send_params(self, email, password, path):
-#     if email != "" and path != "" and password != "":
-#         if check_build_status(path):
-#             self.statusbar.showMessage(send_message(email, password), 1000)
-#         else:
-#             send_params(self,email, password, path)
-#     else:
-#         self.statusbar.showMessage('Field must not be empty!', 1000)
-
 def params_ini(self):
     server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
     email = "s.demnichenko@gmail.com"#self.enter_enail.text()
@@ -49,9 +39,6 @@ def params_ini(self):
             msg = True
         except smtplib.SMTPAuthenticationError:
             msg = False
-        # finally:
-        #     self.statusbar.showMessage(msg, 1000)
-
         if msg:
             self.statusbar.showMessage("Authentification is true!", 1000)
             fails_count, success_count = check_build_status(path)
