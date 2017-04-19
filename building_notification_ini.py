@@ -1,5 +1,4 @@
 import sys
-import os
 import time
 import smtplib
 from send_message import check_build_status
