@@ -28,8 +28,8 @@ class Build_Notification_init(building_notification.Ui_MainWindow, QtWidgets.QMa
 
 def params_ini(self):
     server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-    email = "s.demnichenko@gmail.com"#self.enter_enail.text()
-    password = "prostosanya777"#self.enter_enail_pass.text()
+    email = self.enter_enail.text()
+    password = self.enter_enail_pass.text()
     path = self.enter_path.text()
     f_c, s_c = 0, 0
 
