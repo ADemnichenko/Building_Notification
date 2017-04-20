@@ -22,7 +22,6 @@ class Build_Notification_init(building_notification.Ui_MainWindow, QtWidgets.QMa
 
         if reply == QtWidgets.QMessageBox.Yes:
             event.accept()
-
         else:
             event.ignore()
 
@@ -30,34 +29,26 @@ def params_ini(self):
     server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
     email = self.enter_enail.text()
     password = self.enter_enail_pass.text()
+    # email = "s.demnichenko@gmail.com"
+    # password = "prostosanya777"
     path = self.enter_path.text()
     f_c, s_c = 0, 0
 
     if email != "" and path != "" and password != "":
         try:
             server.login(email, password)
-            msg = True
-        except smtplib.SMTPAuthenticationError:
-            msg = False
-        if msg:
             self.statusbar.showMessage("Authentification is true!", 1000)
             fails_count, success_count = check_build_status(path)
-
-            while f_c <= fails_count or s_c <= success_count:
+            while f_c <= fails_count and success_count >= s_c:
                 time.sleep(60)
                 f_c, s_c = check_build_status(path)
-                if f_c > fails_count:
-                    server.sendmail(email, email, "BUILD FAILED!")
-                    break
-                if s_c > success_count:
-                    server.sendmail(email,email, "BUILD SUCCESS!")
-                    break
-        else:
+            else:
+                server.sendmail(email, email, "BUILD FAILED!") if f_c > fails_count else 0
+                server.sendmail(email, email, "BUILD SUCCESS!") if s_c > success_count else 0
+        except smtplib.SMTPAuthenticationError:
             self.statusbar.showMessage("Authentification is false!", 1000)
-
     else:
         self.statusbar.showMessage('Fields must not be empty!', 1000)
-
 
 #Select Path Dialog
 def pathDialog(self):
