@@ -9,7 +9,7 @@ def saveSettings(self, fileName):
         with open(os.path.abspath(os.path.curdir) + "/" + fileName, "w") as config:
             for el in params:
                 config.write(el+"=" + params.get(el) + "\n")
-        return self.statusbar.showMessage("Save", 1000)
+        self.statusbar.showMessage("Save", 1000)
     else:
         self.statusbar.showMessage("Fields must not be empty!", 1000)
 
@@ -23,7 +23,7 @@ def resetSettings(self, fileName):
     self.statusbar.showMessage("Reset", 1000)
 
 #Check Settings
-def checkSettings(fileName):
+def checkSettings(self, fileName):
     params = {}
     try:
         with open(os.path.abspath(os.path.curdir) + "/" + fileName, "r") as config:
@@ -34,14 +34,8 @@ def checkSettings(fileName):
                     params["password"] = el.replace("password=", "")
                 if el.find("directory=") != -1:
                     params["directory"] = el.replace("directory=", "")
-            return params
+            self.enter_enail.setText(params.get("login", ""))
+            self.enter_enail_pass.setText(params.get("password", ""))
+            self.enter_path_dir.setText(params.get("directory", ""))
     except FileNotFoundError:
         return params
-
-#Select path
-def getPath(self, path):
-    if path != "":
-        self.statusbar.showMessage('Select path: ' + list(path)[0], 1000)
-        return path
-    else:
-        self.statusbar.showMessage('Path don\'t select!', 1000)
