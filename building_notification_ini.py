@@ -1,19 +1,17 @@
 import sys
 import threading
 import time
-
 from setttings import checkSettings, saveSettings, resetSettings
 from notification import check_build_status
-from send import connect, send
-
+from send import MailSender
 from PyQt5 import QtWidgets, QtGui, QtCore
 from UI import  building_notification
+
 
 class Build_Notification_init(building_notification.Ui_MainWindow, QtWidgets.QMainWindow):
     def __init__(self):
         super(Build_Notification_init, self).__init__()
         self.setupUi(self)
-
         # Settings
         configFileName = "config.txt"
         checkSettings(self, configFileName)
@@ -32,7 +30,10 @@ class Build_Notification_init(building_notification.Ui_MainWindow, QtWidgets.QMa
                         self.enter_path_file.text(),
                         self.enter_path_dir.text()
                        ), 5000))
-        self.start_btn.button(QtWidgets.QDialogButtonBox.Cancel).clicked.connect(lambda: params_ini(self))
+
+
+        # self.start_btn.button(QtWidgets.QDialogButtonBox.Cancel).clicked.connect(lambda:)
+
     #Close Event
     def closeEvent(self, event):
         reply = QtWidgets.QMessageBox.question(self, 'Message',
@@ -44,13 +45,10 @@ class Build_Notification_init(building_notification.Ui_MainWindow, QtWidgets.QMa
             event.ignore()
 
 def params_ini(email, r_email, password, fileName, path_dir):
-
     if r_email != "" and fileName != "" and password != "" and fileName != "":
-
         path = path_dir.replace("\n", "") + "/" + fileName
         fails_count, success_count = check_build_status(path)
         thr = threading.Thread(target=checkAndSend, args=(password, fails_count, success_count, path, email, r_email)).start()
-            # return 'Authentication is failed! Check your email or password!'
     else:
         return 'Settings and Notification fields must not be empty!'
 
@@ -58,9 +56,11 @@ def params_ini(email, r_email, password, fileName, path_dir):
 def checkAndSend(password, fails_count, success_count, path, email, recipients_email):
     f_c, s_c = check_build_status(path)
     if f_c > fails_count:
-        return send(email, recipients_email, "BUILD FAILED!", password)
+        sender = MailSender(email, password, recipients_email, "BUILD FAILED!")
+        return sender.send()
     elif s_c > success_count:
-        return send(email, recipients_email, "BUILD SUCCESSFUL!", password)
+        sender = MailSender(email, password, recipients_email, "BUILD SUCCESSFUL!")
+        return sender.send()
     else:
         for i in range(60):
             time.sleep(1)

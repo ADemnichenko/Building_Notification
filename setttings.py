@@ -1,15 +1,24 @@
 import os
+import re
 #Save Settings
 def saveSettings(self, fileName):
+
+    mail = re.compile(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)")
+    pas = re.compile(r"(^[a-zA-Z0-9+-]+$)")
+
     login = self.enter_enail.text()
     password = self.enter_enail_pass.text()
     dir = self.enter_path_dir.text()
+
     if login != "" and password != "" and dir != "":
-        params = {"login" : str(login), "password" : str(password), "directory" : str(dir)}
-        with open(os.path.abspath(os.path.curdir) + "/" + fileName, "w") as config:
-            for el in params:
-                config.write(el+"=" + params.get(el) + "\n")
-        self.statusbar.showMessage("Save", 1000)
+        if mail.findall(self.enter_enail.text()) and pas.findall(self.enter_enail_pass.text()):
+            params = {"login" : str(login), "password" : str(password), "directory" : str(dir)}
+            with open(os.path.abspath(os.path.curdir) + "/" + fileName, "w") as config:
+                for el in params:
+                    config.write(el+"=" + params.get(el) + "\n")
+            self.statusbar.showMessage("Save", 1000)
+        else:
+            self.statusbar.showMessage("Incorrectly login or password!", 1000)
     else:
         self.statusbar.showMessage("Fields must not be empty!", 1000)
 
