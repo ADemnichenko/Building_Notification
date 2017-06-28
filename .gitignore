@@ -2,4 +2,3 @@ bwf
 config.txt
 UI/building_notification_2.ui
 UI/building_notification.ui
-signals_test.py
