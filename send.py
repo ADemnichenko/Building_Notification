@@ -7,7 +7,6 @@ class MailSender:
         self.rcpnts_email = rcpnts_email
         self.msg = msg
         self.server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-
     def send(self):
         try:
             self.server.login(self.auth_email, self.auth_password)
