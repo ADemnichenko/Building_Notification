@@ -7,7 +7,6 @@ class UnpakingProject:
         self.unpak_path = unpack_path
         self.ipa_folder_name = "extractedIPA"
         self.pak_folder_name = "unpakedPAK"
-
     def ResearchFile(self, path, extension):
         for dir, subdirs, files in os.walk(path):
             for filename in files:

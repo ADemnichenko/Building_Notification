@@ -2,7 +2,6 @@
 def check_build_status(path):
     fails_counter = 0
     success_counter = 0
-
     with open(path) as log:
         for str in log:
             success_counter += 1 if str.find("BUILD SUCCESSFUL") != -1 else 0
