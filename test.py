@@ -13,35 +13,18 @@ class UnpakingProject:
             for filename in files:
                 if filename.endswith(extension):
                     return filename, dir, True
-
     def UnzipIPA(self):
         search = self.ResearchFile(self.build_path, ".ipa")
         if True in search:
             zip_file = zipfile.ZipFile("{0}/{1}".format(self.build_path, search[0]), 'r')
             if zip_file.extractall("{0}/{1}".format(self.build_path, self.ipa_folder_name)):
                 zip_file.close()
-
-        # for dir, subdirs, files in os.walk(self.build_path):
-        #     for filename in files:
-        #         if filename.endswith(".ipa"):
-        #             zip_file = zipfile.ZipFile("{0}/{1}".format(self.build_path, filename), 'r')
-        #             if zip_file.extractall("{0}/{1}".format(self.build_path, self.ipa_folder_name)):
-        #                 zip_file.close()
-
     def UnpakPAK(self):
         search = self.ResearchFile("{0}/{1}".format(self.build_path,self.ipa_folder_name), ".pak")
         if True in search:
             with open("{0}/unpak.bat".format(self.build_path), 'w') as batch:
                 batch.write("{0}/UnrealPak.exe {1}/{2} -Extract {3}/{4}".format(self.unpak_path, search[1], search[0], self.build_path, self.pak_folder_name))
             os.system("{0}/unpak.bat".format(self.build_path))
-
-        # for dir, subdirs, files in os.walk("{0}/{1}".format(self.build_path,self.ipa_folder_name)):
-        #     for filename in files:
-        #         if filename.endswith(".pak"):
-        #             with open("{0}/unpak.bat".format(self.build_path), 'w') as batch:
-        #                 batch.write("{0}/UnrealPak.exe {1}/{2} -Extract {3}/{4}".format(self.unpak_path, dir, filename, self.build_path, self.pak_folder_name))
-        #             os.system("{0}/unpak.bat".format(self.build_path))
-        #             return True
     def GetPackagesSize(self):
         total_size = 0
         for dirpath, dirnames, filenames in os.walk("{0}/{1}".format(self.build_path, self.pak_folder_name)):
@@ -56,6 +39,6 @@ class UnpakingProject:
                 break
 
 unpak = UnpakingProject()
-# unpak.UnzipIPA()
-# unpak.UnpakPAK()
-# unpak.GetPackagesSize()
+unpak.UnzipIPA()
+unpak.UnpakPAK()
+unpak.GetPackagesSize()
