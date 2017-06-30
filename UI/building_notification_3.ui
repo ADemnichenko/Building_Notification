@@ -7,19 +7,19 @@
     <x>0</x>
     <y>0</y>
     <width>449</width>
-    <height>495</height>
+    <height>551</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>449</width>
-    <height>369</height>
+    <height>551</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
     <width>449</width>
-    <height>1020</height>
+    <height>551</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -46,8 +46,11 @@
       <property name="maximumSize">
        <size>
         <width>411</width>
-        <height>422</height>
+        <height>520</height>
        </size>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::TabFocus</enum>
       </property>
       <property name="styleSheet">
        <string notr="true">QTabWidget::pane { /* The tab widget frame */
@@ -94,9 +97,21 @@ QTabBar::tab:selected {
          <rect>
           <x>0</x>
           <y>10</y>
-          <width>415</width>
-          <height>421</height>
+          <width>409</width>
+          <height>481</height>
          </rect>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>409</width>
+          <height>481</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>409</width>
+          <height>481</height>
+         </size>
         </property>
         <property name="frameShape">
          <enum>QFrame::NoFrame</enum>
@@ -105,7 +120,22 @@ QTabBar::tab:selected {
          <enum>QFrame::Raised</enum>
         </property>
         <layout class="QGridLayout" name="gridLayout_9">
-         <item row="0" column="0">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <item row="1" column="0">
           <widget class="QGroupBox" name="groupBox">
            <property name="maximumSize">
             <size>
@@ -128,7 +158,7 @@ QGroupBox::title {
 </string>
            </property>
            <property name="title">
-            <string>Project Directory</string>
+            <string>Game Directory</string>
            </property>
            <layout class="QGridLayout" name="gridLayout_3">
             <item row="0" column="0">
@@ -152,6 +182,40 @@ QGroupBox::title {
                <enum>QFrame::Raised</enum>
               </property>
               <layout class="QGridLayout" name="gridLayout_2">
+               <item row="0" column="0">
+                <widget class="QLineEdit" name="fld_proj_path">
+                 <property name="minimumSize">
+                  <size>
+                   <width>306</width>
+                   <height>31</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>306</width>
+                   <height>31</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLineEdit{
+color: rgb(203, 203, 203);
+background-color: rgb(117, 117, 117);
+border-top-left-radius: 8px;
+border-bottom-left-radius: 8px;
+padding: 5px;
+}</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                 <property name="placeholderText">
+                  <string>Select Game Directory</string>
+                 </property>
+                </widget>
+               </item>
                <item row="0" column="1">
                 <widget class="QToolButton" name="btn_proj_dir">
                  <property name="minimumSize">
@@ -179,173 +243,24 @@ QToolButton:hover {
                  </property>
                 </widget>
                </item>
-               <item row="0" column="0">
-                <widget class="QLineEdit" name="fld_proj_path">
-                 <property name="minimumSize">
-                  <size>
-                   <width>301</width>
-                   <height>31</height>
-                  </size>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">QLineEdit{
-color: rgb(203, 203, 203);
-background-color: rgb(117, 117, 117);
-border-top-left-radius: 8px;
-border-bottom-left-radius: 8px;
-padding: 5px;
-}</string>
-                 </property>
-                 <property name="text">
-                  <string>Select Project Directory</string>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignCenter</set>
-                 </property>
-                </widget>
-               </item>
               </layout>
              </widget>
             </item>
            </layout>
           </widget>
          </item>
-         <item row="1" column="0">
-          <widget class="QGroupBox" name="groupBox_3">
-           <property name="minimumSize">
-            <size>
-             <width>391</width>
-             <height>90</height>
-            </size>
-           </property>
-           <property name="maximumSize">
-            <size>
-             <width>391</width>
-             <height>90</height>
-            </size>
-           </property>
-           <property name="styleSheet">
-            <string notr="true">QGroupBox {
-    border: 1px solid gray;
-    border-radius: 10px;
-    margin-top: 1ex; /* leave space at the top for the title */
-}
-QGroupBox::title {
-	color: rgb(203, 203, 203);
-	subcontrol-origin: margin;
-    subcontrol-position: top center; /* position at the top center */
-    padding: 0 3px;
-}
-</string>
-           </property>
-           <property name="title">
-            <string>Project Name</string>
-           </property>
-           <layout class="QGridLayout" name="gridLayout_5">
-            <item row="0" column="0">
-             <widget class="QFrame" name="frame_2">
-              <property name="minimumSize">
-               <size>
-                <width>365</width>
-                <height>57</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>365</width>
-                <height>57</height>
-               </size>
-              </property>
-              <property name="frameShape">
-               <enum>QFrame::NoFrame</enum>
-              </property>
-              <property name="frameShadow">
-               <enum>QFrame::Raised</enum>
-              </property>
-              <layout class="QGridLayout" name="gridLayout_4">
-               <item row="0" column="0">
-                <widget class="QLabel" name="label_3">
-                 <property name="minimumSize">
-                  <size>
-                   <width>91</width>
-                   <height>16</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>91</width>
-                   <height>16</height>
-                  </size>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">QLabel{	color: rgb(203, 203, 203);}</string>
-                 </property>
-                 <property name="text">
-                  <string>Project Name :</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <spacer name="horizontalSpacer">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>8</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item row="0" column="2">
-                <widget class="QLineEdit" name="fld_proj_name">
-                 <property name="minimumSize">
-                  <size>
-                   <width>221</width>
-                   <height>31</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>221</width>
-                   <height>31</height>
-                  </size>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">QLineEdit{
-color: rgb(203, 203, 203);
-background-color: rgb(117, 117, 117);
-border-radius: 8px;
-padding: 5px;
-}</string>
-                 </property>
-                 <property name="text">
-                  <string>Enter Project Name</string>
-                 </property>
-                 <property name="alignment">
-                  <set>Qt::AlignCenter</set>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item row="2" column="0">
+         <item row="4" column="0">
           <widget class="QGroupBox" name="groupBox_2">
            <property name="minimumSize">
             <size>
              <width>391</width>
-             <height>180</height>
+             <height>150</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
              <width>391</width>
-             <height>180</height>
+             <height>150</height>
             </size>
            </property>
            <property name="styleSheet">
@@ -375,6 +290,21 @@ QGroupBox::title {
                <enum>QFrame::Raised</enum>
               </property>
               <layout class="QGridLayout" name="gridLayout_6">
+               <property name="leftMargin">
+                <number>20</number>
+               </property>
+               <property name="rightMargin">
+                <number>5</number>
+               </property>
+               <property name="bottomMargin">
+                <number>0</number>
+               </property>
+               <property name="horizontalSpacing">
+                <number>0</number>
+               </property>
+               <property name="verticalSpacing">
+                <number>10</number>
+               </property>
                <item row="0" column="0">
                 <widget class="QLabel" name="label">
                  <property name="minimumSize">
@@ -433,10 +363,13 @@ padding: 5px;
 }</string>
                  </property>
                  <property name="text">
-                  <string>Enter Email</string>
+                  <string/>
                  </property>
                  <property name="alignment">
                   <set>Qt::AlignCenter</set>
+                 </property>
+                 <property name="placeholderText">
+                  <string>Enter Email</string>
                  </property>
                 </widget>
                </item>
@@ -463,13 +396,16 @@ padding: 5px;
 }</string>
                  </property>
                  <property name="text">
-                  <string>Enter Password</string>
+                  <string/>
                  </property>
                  <property name="echoMode">
-                  <enum>QLineEdit::Normal</enum>
+                  <enum>QLineEdit::Password</enum>
                  </property>
                  <property name="alignment">
                   <set>Qt::AlignCenter</set>
+                 </property>
+                 <property name="placeholderText">
+                  <string>Enter Password</string>
                  </property>
                 </widget>
                </item>
@@ -482,6 +418,21 @@ padding: 5px;
                   <enum>QFrame::Raised</enum>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_7">
+                  <property name="leftMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="spacing">
+                   <number>0</number>
+                  </property>
                   <item row="0" column="0">
                    <spacer name="horizontalSpacer_3">
                     <property name="orientation">
@@ -555,33 +506,7 @@ color: rgb(203, 203, 203);
            </layout>
           </widget>
          </item>
-        </layout>
-       </widget>
-      </widget>
-      <widget class="QWidget" name="notification">
-       <property name="styleSheet">
-        <string notr="true"/>
-       </property>
-       <attribute name="title">
-        <string>Notification</string>
-       </attribute>
-       <widget class="QFrame" name="frame_8">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>10</y>
-          <width>421</width>
-          <height>428</height>
-         </rect>
-        </property>
-        <property name="frameShape">
-         <enum>QFrame::NoFrame</enum>
-        </property>
-        <property name="frameShadow">
-         <enum>QFrame::Raised</enum>
-        </property>
-        <layout class="QGridLayout" name="gridLayout_15">
-         <item row="0" column="0">
+         <item row="3" column="0">
           <widget class="QGroupBox" name="groupBox_4">
            <property name="minimumSize">
             <size>
@@ -638,13 +563,13 @@ QGroupBox::title {
                 <widget class="QLineEdit" name="fld_ipa_or_pak_dir">
                  <property name="minimumSize">
                   <size>
-                   <width>301</width>
+                   <width>306</width>
                    <height>31</height>
                   </size>
                  </property>
                  <property name="maximumSize">
                   <size>
-                   <width>301</width>
+                   <width>306</width>
                    <height>31</height>
                   </size>
                  </property>
@@ -658,10 +583,16 @@ padding: 5px;
 }</string>
                  </property>
                  <property name="text">
-                  <string>Select IPA or PAK Directory</string>
+                  <string/>
                  </property>
                  <property name="alignment">
                   <set>Qt::AlignCenter</set>
+                 </property>
+                 <property name="readOnly">
+                  <bool>false</bool>
+                 </property>
+                 <property name="placeholderText">
+                  <string>Select IPA or PAK Directory</string>
                  </property>
                 </widget>
                </item>
@@ -704,6 +635,151 @@ QToolButton:hover {
            </layout>
           </widget>
          </item>
+         <item row="0" column="0">
+          <widget class="QGroupBox" name="groupBox_3">
+           <property name="minimumSize">
+            <size>
+             <width>391</width>
+             <height>90</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>391</width>
+             <height>90</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QGroupBox {
+    border: 1px solid gray;
+    border-radius: 10px;
+    margin-top: 1ex; /* leave space at the top for the title */
+}
+QGroupBox::title {
+	color: rgb(203, 203, 203);
+	subcontrol-origin: margin;
+    subcontrol-position: top center; /* position at the top center */
+    padding: 0 3px;
+}
+</string>
+           </property>
+           <property name="title">
+            <string>Project Name</string>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_5">
+            <item row="0" column="0">
+             <widget class="QFrame" name="frame_2">
+              <property name="minimumSize">
+               <size>
+                <width>365</width>
+                <height>57</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>365</width>
+                <height>57</height>
+               </size>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::NoFrame</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_4">
+               <item row="0" column="0">
+                <widget class="QLineEdit" name="fld_proj_name">
+                 <property name="minimumSize">
+                  <size>
+                   <width>340</width>
+                   <height>31</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>340</width>
+                   <height>31</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLineEdit{
+color: rgb(203, 203, 203);
+background-color: rgb(117, 117, 117);
+border-radius: 8px;
+padding: 5px;
+}</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                 <property name="placeholderText">
+                  <string>Enter Project Name</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="ntfctn">
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <attribute name="title">
+        <string>Notification</string>
+       </attribute>
+       <widget class="QFrame" name="frame_8">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>10</y>
+          <width>415</width>
+          <height>481</height>
+         </rect>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>415</width>
+          <height>481</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>415</width>
+          <height>481</height>
+         </size>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_15">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <property name="spacing">
+          <number>0</number>
+         </property>
          <item row="1" column="0">
           <widget class="QGroupBox" name="groupBox_5">
            <property name="minimumSize">
@@ -749,13 +825,13 @@ QGroupBox::title {
               </property>
               <property name="minimumSize">
                <size>
-                <width>45</width>
+                <width>140</width>
                 <height>30</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
-                <width>110</width>
+                <width>140</width>
                 <height>30</height>
                </size>
               </property>
@@ -830,13 +906,13 @@ QGroupBox::title {
            <property name="minimumSize">
             <size>
              <width>391</width>
-             <height>190</height>
+             <height>210</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
              <width>391</width>
-             <height>190</height>
+             <height>210</height>
             </size>
            </property>
            <property name="styleSheet">
@@ -854,11 +930,23 @@ QGroupBox::title {
 </string>
            </property>
            <property name="title">
-            <string>Progress</string>
+            <string>Options</string>
            </property>
            <layout class="QGridLayout" name="gridLayout_14">
-            <item row="1" column="0">
+            <item row="0" column="0">
              <widget class="QFrame" name="frame_7">
+              <property name="minimumSize">
+               <size>
+                <width>371</width>
+                <height>190</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>371</width>
+                <height>190</height>
+               </size>
+              </property>
               <property name="frameShape">
                <enum>QFrame::NoFrame</enum>
               </property>
@@ -866,89 +954,14 @@ QGroupBox::title {
                <enum>QFrame::Raised</enum>
               </property>
               <layout class="QGridLayout" name="gridLayout_13">
-               <item row="0" column="2">
-                <widget class="QProgressBar" name="progressBar">
-                 <property name="minimumSize">
-                  <size>
-                   <width>200</width>
-                   <height>0</height>
-                  </size>
-                 </property>
-                 <property name="value">
-                  <number>24</number>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="0">
-                <widget class="QCheckBox" name="checkBox_4">
-                 <property name="minimumSize">
-                  <size>
-                   <width>108</width>
-                   <height>31</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>108</width>
-                   <height>31</height>
-                  </size>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">QCheckBox{
-color: rgb(203, 203, 203);
-background-color: rgb(117, 117, 117);
-border-radius: 8px;
-padding-left : 8px;
-}</string>
-                 </property>
-                 <property name="text">
-                  <string>Get Size</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="2">
-                <widget class="QProgressBar" name="progressBar_3">
-                 <property name="value">
-                  <number>24</number>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="2">
-                <widget class="QProgressBar" name="progressBar_2">
-                 <property name="value">
-                  <number>24</number>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="0">
-                <widget class="QCheckBox" name="checkBox_3">
-                 <property name="minimumSize">
-                  <size>
-                   <width>108</width>
-                   <height>31</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>108</width>
-                   <height>31</height>
-                  </size>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">QCheckBox{
-color: rgb(203, 203, 203);
-background-color: rgb(117, 117, 117);
-border-radius: 8px;
-padding-left : 8px;
-}</string>
-                 </property>
-                 <property name="text">
-                  <string>Unpak PAK</string>
-                 </property>
-                </widget>
-               </item>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
+                <number>0</number>
+               </property>
                <item row="0" column="0">
-                <widget class="QCheckBox" name="checkBox">
+                <widget class="QCheckBox" name="chb_parse_log">
                  <property name="minimumSize">
                   <size>
                    <width>108</width>
@@ -972,17 +985,16 @@ padding-left : 8px;
                  <property name="text">
                   <string>Parse Log</string>
                  </property>
-                </widget>
-               </item>
-               <item row="3" column="2">
-                <widget class="QProgressBar" name="progressBar_4">
-                 <property name="value">
-                  <number>24</number>
+                 <property name="checkable">
+                  <bool>true</bool>
+                 </property>
+                 <property name="checked">
+                  <bool>false</bool>
                  </property>
                 </widget>
                </item>
-               <item row="1" column="0">
-                <widget class="QCheckBox" name="checkBox_2">
+               <item row="0" column="1">
+                <widget class="QCheckBox" name="chb_extract_ipa">
                  <property name="minimumSize">
                   <size>
                    <width>108</width>
@@ -1008,18 +1020,179 @@ padding-left : 8px;
                  </property>
                 </widget>
                </item>
-               <item row="0" column="1">
-                <spacer name="horizontalSpacer_6">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
+               <item row="0" column="2">
+                <widget class="QCheckBox" name="chb_send_to_email">
+                 <property name="minimumSize">
                   <size>
-                   <width>30</width>
-                   <height>20</height>
+                   <width>108</width>
+                   <height>31</height>
                   </size>
                  </property>
-                </spacer>
+                 <property name="maximumSize">
+                  <size>
+                   <width>108</width>
+                   <height>31</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QCheckBox{
+color: rgb(203, 203, 203);
+background-color: rgb(117, 117, 117);
+border-radius: 8px;
+padding-left : 8px;
+}</string>
+                 </property>
+                 <property name="text">
+                  <string>Sent to Email</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QCheckBox" name="chb_unpackpak">
+                 <property name="minimumSize">
+                  <size>
+                   <width>108</width>
+                   <height>31</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>108</width>
+                   <height>31</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QCheckBox{
+color: rgb(203, 203, 203);
+background-color: rgb(117, 117, 117);
+border-radius: 8px;
+padding-left : 8px;
+}</string>
+                 </property>
+                 <property name="text">
+                  <string>Unpak PAK</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="1" column="1">
+                <widget class="QCheckBox" name="chb_get_size">
+                 <property name="minimumSize">
+                  <size>
+                   <width>108</width>
+                   <height>31</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>108</width>
+                   <height>31</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QCheckBox{
+color: rgb(203, 203, 203);
+background-color: rgb(117, 117, 117);
+border-radius: 8px;
+padding-left : 8px;
+}</string>
+                 </property>
+                 <property name="text">
+                  <string>Get Size</string>
+                 </property>
+                </widget>
+               </item>
+               <item row="2" column="0" colspan="3">
+                <widget class="QFrame" name="frame_11">
+                 <property name="minimumSize">
+                  <size>
+                   <width>360</width>
+                   <height>60</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>360</width>
+                   <height>60</height>
+                  </size>
+                 </property>
+                 <property name="frameShape">
+                  <enum>QFrame::StyledPanel</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
+                 </property>
+                 <layout class="QGridLayout" name="gridLayout_17">
+                  <property name="leftMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="topMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="rightMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="bottomMargin">
+                   <number>0</number>
+                  </property>
+                  <property name="spacing">
+                   <number>0</number>
+                  </property>
+                  <item row="0" column="0">
+                   <widget class="QLabel" name="label_4">
+                    <property name="minimumSize">
+                     <size>
+                      <width>340</width>
+                      <height>15</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>340</width>
+                      <height>15</height>
+                     </size>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">QLabel{	color: rgb(203, 203, 203);}</string>
+                    </property>
+                    <property name="text">
+                     <string>Parse log...</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="0">
+                   <widget class="QProgressBar" name="pb_progress">
+                    <property name="minimumSize">
+                     <size>
+                      <width>330</width>
+                      <height>15</height>
+                     </size>
+                    </property>
+                    <property name="maximumSize">
+                     <size>
+                      <width>340</width>
+                      <height>15</height>
+                     </size>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">QProgressBar {
+	color: rgb(80, 80, 80);
+    border: 1px solid grey;
+    border-radius: 5px;
+    text-align: center;
+}
+
+QProgressBar::chunk {
+    background-color: #05B8CC;
+    width: 10px;
+}</string>
+                    </property>
+                    <property name="value">
+                     <number>50</number>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
                </item>
               </layout>
              </widget>
@@ -1032,13 +1205,13 @@ padding-left : 8px;
            <property name="minimumSize">
             <size>
              <width>397</width>
-             <height>60</height>
+             <height>45</height>
             </size>
            </property>
            <property name="maximumSize">
             <size>
              <width>397</width>
-             <height>60</height>
+             <height>45</height>
             </size>
            </property>
            <property name="frameShape">
@@ -1047,7 +1220,22 @@ padding-left : 8px;
            <property name="frameShadow">
             <enum>QFrame::Raised</enum>
            </property>
-           <layout class="QGridLayout" name="gridLayout_17">
+           <layout class="QGridLayout" name="gridLayout_20">
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <property name="spacing">
+             <number>0</number>
+            </property>
             <item row="0" column="1">
              <widget class="QFrame" name="frame_9">
               <property name="minimumSize">
@@ -1069,7 +1257,22 @@ padding-left : 8px;
                <enum>QFrame::Raised</enum>
               </property>
               <layout class="QGridLayout" name="gridLayout_16">
-               <item row="0" column="2">
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
+                <number>0</number>
+               </property>
+               <property name="spacing">
+                <number>0</number>
+               </property>
+               <item row="0" column="3">
                 <widget class="QPushButton" name="btn_cancel">
                  <property name="minimumSize">
                   <size>
@@ -1102,7 +1305,7 @@ QPushButton:hover {
                  </property>
                 </widget>
                </item>
-               <item row="0" column="0">
+               <item row="0" column="1">
                 <widget class="QPushButton" name="btn_start">
                  <property name="minimumSize">
                   <size>
@@ -1135,7 +1338,7 @@ QPushButton:hover {
                  </property>
                 </widget>
                </item>
-               <item row="0" column="1">
+               <item row="0" column="2">
                 <spacer name="horizontalSpacer_8">
                  <property name="orientation">
                   <enum>Qt::Horizontal</enum>
@@ -1152,17 +1355,109 @@ QPushButton:hover {
              </widget>
             </item>
             <item row="0" column="0">
-             <spacer name="horizontalSpacer_7">
+             <spacer name="horizontalSpacer">
               <property name="orientation">
                <enum>Qt::Horizontal</enum>
               </property>
               <property name="sizeHint" stdset="0">
                <size>
-                <width>174</width>
-                <height>2</height>
+                <width>40</width>
+                <height>20</height>
                </size>
               </property>
              </spacer>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QGroupBox" name="groupBox_7">
+           <property name="minimumSize">
+            <size>
+             <width>391</width>
+             <height>90</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>391</width>
+             <height>90</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QGroupBox {
+    border: 1px solid gray;
+    border-radius: 10px;
+    margin-top: 1ex; /* leave space at the top for the title */
+}
+QGroupBox::title {
+	color: rgb(203, 203, 203);
+	subcontrol-origin: margin;
+    subcontrol-position: top center; /* position at the top center */
+    padding: 0 3px;
+}
+</string>
+           </property>
+           <property name="title">
+            <string>Send to...</string>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_18">
+            <item row="0" column="0">
+             <widget class="QFrame" name="frame_12">
+              <property name="minimumSize">
+               <size>
+                <width>365</width>
+                <height>57</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>365</width>
+                <height>57</height>
+               </size>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::NoFrame</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_19">
+               <item row="0" column="0">
+                <widget class="QLineEdit" name="fld_rcpnts_email">
+                 <property name="minimumSize">
+                  <size>
+                   <width>340</width>
+                   <height>31</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>340</width>
+                   <height>31</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLineEdit{
+color: rgb(203, 203, 203);
+background-color: rgb(117, 117, 117);
+border-radius: 8px;
+padding: 5px;
+}</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                 <property name="placeholderText">
+                  <string>Enter Recipients Emails</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -1174,7 +1469,11 @@ QPushButton:hover {
     </item>
    </layout>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QStatusBar" name="statusbar">
+   <property name="styleSheet">
+    <string notr="true">QStatusBar{color: rgb(203, 203, 203);}</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

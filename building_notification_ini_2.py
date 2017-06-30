@@ -1,6 +1,7 @@
 from PyQt5 import QtWidgets, QtCore, QtGui
 import sys
 import time
+import os
 from setttings import UserSettings
 from notification import check_build_status
 from send import MailSender
@@ -11,65 +12,42 @@ class Build_Notification_init(building_notification_2.Ui_MainWindow, QtWidgets.Q
     def __init__(self):
         super(Build_Notification_init, self).__init__()
         self.setupUi(self)
-        self.auth = MailSender()
-    #     #Set Settings
-    #     self.settings = UserSettings()
-    #     self.settings_params = self.settings.checkSettings()
-    #     self.enter_enail.setText(self.settings_params.get("login", ""))
-    #     self.enter_enail_pass.setText(self.settings_params.get("password", ""))
-    #     self.enter_path_dir.setText(self.settings_params.get("directory", ""))
-    #
+        self.tabWidget.setCurrentWidget(self.stngs)
+
+
+        #Settings
+        # self.settings = UserSettings()
+
         #Threading
         self.build_thread = Thread()
-        self.build_thread.signal.connect(self.parseLog, QtCore.Qt.QueuedConnection)
-    #
-    #     #Set params
-    #     self.auth_email = ""
-    #     self.auth_password = ""
-    #     self.working_dir = ""
-    #     self.rcpnts_email = ""
-    #     self.file_name = ""
-    #     self.file_path = ""
-    #     self.fails_count = 0
-    #     self.sucess_count = 0
-    #
-        #Setting up events for  pressing click
-        self.btn_connection.clicked.connect(lambda: self.on_click_test_connection())
-        self.btn_proj_dir.clicked.connect(lambda: self.fld_proj_path.setText(self.getPath()))
-        self.btn_ipa_or_pak_dir.clicked.connect(lambda: self.fld_ipa_or_pak_dir.setText(self.getPath()))
+        # self.build_thread.signal.connect(self.parseLog, QtCore.Qt.QueuedConnection)
+
+        #Save Data Event
+        self.fld_proj_name.returnPressed.connect(lambda: self.statusbar.showMessage(self.fld_proj_name.text(), 5000))
+        self.fld_ipa_or_pak_dir.textChanged.connect(lambda: self.statusbar.showMessage(self.fld_ipa_or_pak_dir.text(), 5000))
+        self.fld_proj_path.textChanged.connect(lambda: self.statusbar.showMessage(self.fld_proj_path.text(), 5000))
+        self.fld_password.returnPressed.connect(lambda: self.statusbar.showMessage(self.fld_password.text(), 5000))
+        self.fld_email.returnPressed.connect(lambda: self.statusbar.showMessage(self.fld_email.text(), 5000))
+        self.fld_rcpnts_email.returnPressed.connect(lambda: self.statusbar.showMessage(self.fld_rcpnts_email.text(), 5000))
+
+        #Setting up events for  pressing buttons
         self.btn_start.clicked.connect(lambda: self.on_click_start())
-
-    def parseLog(self, signal):
-        m, s = divmod(signal, 60)
-        h, m = divmod(m, 60)
-        self.timeEdit.setTime(QtCore.QTime(h, m, s))
-        if signal % 60 == 0:
-            f_c, s_c = check_build_status(self.file_path)
-            if f_c > self.fails_count : build_status = "BUILD FAILED!"
-            elif s_c > self.sucess_count : build_status = "BUILD SUCCESSFUL!"
-            else: build_status = ""
-            if build_status != "":
-                sender = MailSender(self.auth_email, self.auth_password,self.rcpnts_email, build_status)
-                sender.send()
-                self.build_thread.terminate()
-                self.start_btn.button(QtWidgets.QDialogButtonBox.Ok).setDisabled(False)
-
-    def on_click_test_connection(self):
-        if self.fld_email != "" and self.fld_password != "":
-            self.statusbar.showMessage(self.auth.TestConection(self.fld_email.text(), self.fld_password.text()), 5000)
-        else: self.statusbar.showMessage("Login or Password fields, must not be empty!", 5000)
+        self.btn_cancel.clicked.connect(lambda: self.on_click_cancel())
+        self.btn_connection.clicked.connect(lambda: self.on_click_test_connection())
+        self.btn_proj_dir.clicked.connect(lambda: self.fld_proj_path.setText(self.on_click_get_path()))
+        self.btn_ipa_or_pak_dir.clicked.connect(lambda: self.fld_ipa_or_pak_dir.setText(self.on_click_get_path()))
 
     def on_click_start(self):
-        if self.checkBox.isChecked() == True:
-            self.build_thread.start()
+        pass
 
     def on_click_cancel(self):
-        self.start_btn.button(QtWidgets.QDialogButtonBox.Ok).setDisabled(False)
-        self.build_thread.terminate()
-        self.statusbar.showMessage("Canceled...", 5000)
+        pass
 
-    def getPath(self, start_dir = "" ):
-        path = QtWidgets.QFileDialog.getExistingDirectory(self, "Select Directory",start_dir.replace("\n", ""))
+    def on_click_test_connection(self):
+        pass
+
+    def on_click_get_path(self, start_dir = "" ):
+        path = QtWidgets.QFileDialog.getExistingDirectory(self, "Select Directory", start_dir.replace("\n", ""))
         if path != "":
             self.statusbar.showMessage("Selected: {0}".format(path))
             return path
