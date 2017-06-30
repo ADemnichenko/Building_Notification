@@ -1,12 +1,10 @@
 from PyQt5 import QtWidgets, QtCore, QtGui
 import sys
 import time
-import os
 from setttings import UserSettings
 from notification import check_build_status
 from send import MailSender
 from UI import  building_notification_2
-
 
 class Build_Notification_init(building_notification_2.Ui_MainWindow, QtWidgets.QMainWindow):
     def __init__(self):
@@ -14,28 +12,46 @@ class Build_Notification_init(building_notification_2.Ui_MainWindow, QtWidgets.Q
         self.setupUi(self)
         self.tabWidget.setCurrentWidget(self.stngs)
 
+        # Settings
+        self.settings = UserSettings()
+        self.config_params = self.settings.checkSettings()
+        self.fld_ipa_or_pak_dir.setText(self.config_params.get("ipa_or_pak_dir", ""))
+        self.fld_proj_path.setText(self.config_params.get("project_path", ""))
+        self.fld_rcpnts_email.setText(self.config_params.get("recipients_email", ""))
+        self.fld_email.setText(self.config_params.get("email", ""))
+        self.fld_password.setText(self.config_params.get("password", ""))
+        self.fld_proj_name.setText(self.config_params.get("project_name", ""))
 
-        #Settings
-        # self.settings = UserSettings()
+        #For send
+        self.mail = MailSender()
 
         #Threading
         self.build_thread = Thread()
         # self.build_thread.signal.connect(self.parseLog, QtCore.Qt.QueuedConnection)
 
         #Save Data Event
-        self.fld_proj_name.returnPressed.connect(lambda: self.statusbar.showMessage(self.fld_proj_name.text(), 5000))
-        self.fld_ipa_or_pak_dir.textChanged.connect(lambda: self.statusbar.showMessage(self.fld_ipa_or_pak_dir.text(), 5000))
-        self.fld_proj_path.textChanged.connect(lambda: self.statusbar.showMessage(self.fld_proj_path.text(), 5000))
-        self.fld_password.returnPressed.connect(lambda: self.statusbar.showMessage(self.fld_password.text(), 5000))
-        self.fld_email.returnPressed.connect(lambda: self.statusbar.showMessage(self.fld_email.text(), 5000))
-        self.fld_rcpnts_email.returnPressed.connect(lambda: self.statusbar.showMessage(self.fld_rcpnts_email.text(), 5000))
+        self.fld_proj_name.textChanged.connect(
+            lambda: self.statusbar.showMessage(self.settings.saveSettings(project_name = self.fld_proj_name.text()), 3000))
+        self.fld_ipa_or_pak_dir.textChanged.connect(
+            lambda: self.statusbar.showMessage(self.settings.saveSettings(ipa_or_pak_dir = self.fld_ipa_or_pak_dir.text()), 3000))
+        self.fld_proj_path.textChanged.connect(
+            lambda: self.statusbar.showMessage(self.settings.saveSettings(project_path = self.fld_proj_path.text()), 3000))
+        self.fld_password.textChanged.connect(
+            lambda: self.statusbar.showMessage(self.settings.saveSettings(password = self.fld_password.text()), 3000))
+        self.fld_email.textChanged.connect(
+            lambda: self.statusbar.showMessage(self.settings.saveSettings(email = self.fld_email.text()), 3000))
+        self.fld_rcpnts_email.textChanged.connect(
+            lambda: self.statusbar.showMessage(self.settings.saveSettings(recipients_email = self.fld_rcpnts_email.text()), 3000))
 
         #Setting up events for  pressing buttons
         self.btn_start.clicked.connect(lambda: self.on_click_start())
         self.btn_cancel.clicked.connect(lambda: self.on_click_cancel())
-        self.btn_connection.clicked.connect(lambda: self.on_click_test_connection())
-        self.btn_proj_dir.clicked.connect(lambda: self.fld_proj_path.setText(self.on_click_get_path()))
-        self.btn_ipa_or_pak_dir.clicked.connect(lambda: self.fld_ipa_or_pak_dir.setText(self.on_click_get_path()))
+        self.btn_connection.clicked.connect(
+            lambda: self.statusbar.showMessage(self.mail.testConection(self.fld_email.text(), self.fld_password.text())))
+        self.btn_proj_dir.clicked.connect(
+            lambda: self.fld_proj_path.setText(self.on_click_get_path(self.fld_proj_path.text())))
+        self.btn_ipa_or_pak_dir.clicked.connect(
+            lambda: self.fld_ipa_or_pak_dir.setText(self.on_click_get_path(self.fld_ipa_or_pak_dir.text())))
 
     def on_click_start(self):
         pass
@@ -43,17 +59,8 @@ class Build_Notification_init(building_notification_2.Ui_MainWindow, QtWidgets.Q
     def on_click_cancel(self):
         pass
 
-    def on_click_test_connection(self):
-        pass
-
     def on_click_get_path(self, start_dir = "" ):
-        path = QtWidgets.QFileDialog.getExistingDirectory(self, "Select Directory", start_dir.replace("\n", ""))
-        if path != "":
-            self.statusbar.showMessage("Selected: {0}".format(path))
-            return path
-        else:
-            self.statusbar.showMessage("Path don't selected!")
-            return path
+        return QtWidgets.QFileDialog.getExistingDirectory(self, "Select Directory", start_dir.replace("\n", ""))
 
     def closeEvent(self, event):
         messagebox = QtWidgets.QMessageBox()

@@ -1,50 +1,43 @@
 import os
-import re
-
-class CheckFields:
-    def __init__(self):
-        self.r_email = re.compile(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)")
-        self.r_pass = re.compile(r"(^[a-zA-Z0-9+-]+$)")
-
-    def CheckMail(self, email):
-        return True if self.r_email.findall(email) else False
-
-    def CheckPassword(self, password):
-        return True if self.r_pass.findall(password) else False
 
 class UserSettings():
     def __init__(self):
         self.err_msg1 = "Fields must not be empty!"
         self.err_msg2 = "Incorrectly login or password!"
-        self.params = {}
-    def saveSettings(self, auth_email, auth_password, working_dir = "", file_name = "config.txt"):
-        if auth_email == "" or auth_password == "":
-            return self.err_msg1
-        else:
-            f_check = CheckFields()
-            if f_check.CheckMail(auth_email) and f_check.CheckPassword(auth_password):
-                self.params = {"login": str(auth_email), "password": str(auth_password), "directory": str(working_dir)}
-                with open(os.path.abspath(os.path.curdir) + "/" + file_name, "w") as config:
-                    for el in self.params:
-                        config.write(el + "=" + self.params.get(el) + "\n")
-                    return "Save Complete!"
-            else:
-                return self.err_msg2
-    def resetSettings(self, file_name = "config.txt"):
-            with open(os.path.abspath(os.path.curdir) + "/" + file_name, "w") as config:
-                config.write("")
-            return True
-    def checkSettings(self, file_name = "config.txt"):
-        self.params = {}
+        self.config_filename = "config.txt"
+        self.config_params = {
+            "project_name" : "",
+            "ipa_or_pak_dir": "",
+            "project_path": "",
+            "password": "",
+            "email": "",
+            "recipients_email": ""
+        }
+
+    def saveSettings(self, **kwargs):
+        for k in kwargs:
+            self.config_params[k] = kwargs[k]
+            with open(os.path.abspath(os.path.curdir) + "/" + self.config_filename, "w") as config:
+                for key in self.config_params:
+                    config.write(key + " = " + self.config_params.get(key) + "\n")
+                return kwargs.get(k)
+
+    def checkSettings(self):
         try:
-            with open(os.path.abspath(os.path.curdir) + "/" + file_name, "r") as config:
+            with open(os.path.abspath(os.path.curdir) + "/" + self.config_filename, "r") as config:
                 for el in config:
-                    if el.find("login=") != -1:
-                        self.params["login"] = el.replace("login=", "")
-                    if el.find("password=") != -1:
-                        self.params["password"] = el.replace("password=", "")
-                    if el.find("directory=") != -1:
-                        self.params["directory"] = el.replace("directory=", "")
-                return self.params
+                    if el.find("ipa_or_pak_dir = ") != -1:
+                        self.config_params["ipa_or_pak_dir"] = el.replace("ipa_or_pak_dir = ", "")
+                    if el.find("recipients_email = ") != -1:
+                        self.config_params["recipients_email"] = el.replace("recipients_email = ", "")
+                    if el.find("email = ") != -1:
+                        self.config_params["email"] = el.replace("email = ", "")
+                    if el.find("project_path = ") != -1:
+                        self.config_params["project_path"] = el.replace("project_path = ", "")
+                    if el.find("project_name = ") != -1:
+                        self.config_params["project_name"] = el.replace("project_name = ", "")
+                    if el.find("password = ") != -1:
+                        self.config_params["password"] = el.replace("password = ", "")
+                return self.config_params
         except FileNotFoundError:
-            return self.params
+            return {}
