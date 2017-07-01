@@ -19,7 +19,7 @@ class UserSettings():
             self.config_params[k] = kwargs[k]
             with open(os.path.abspath(os.path.curdir) + "/" + self.config_filename, "w") as config:
                 for key in self.config_params:
-                    config.write(key + " = " + self.config_params.get(key) + "\n")
+                    config.write(key + " = " + self.config_params.get(key).replace("\n", "") + "\n")
                 return kwargs.get(k)
 
     def checkSettings(self):

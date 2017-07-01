@@ -54,7 +54,33 @@ class Build_Notification_init(building_notification_2.Ui_MainWindow, QtWidgets.Q
             lambda: self.fld_ipa_or_pak_dir.setText(self.on_click_get_path(self.fld_ipa_or_pak_dir.text())))
 
     def on_click_start(self):
-        pass
+        if self.chb_extract_ipa.isChecked():
+            if self.fld_ipa_or_pak_dir.text() != "":
+                pass
+            else:
+                self.statusbar.showMessage("IPA or PAK directory field must not be empty!", 3000)
+        elif self.chb_get_size.isChecked():
+            if self.fld_ipa_or_pak_dir.text():
+                pass
+            else:
+                self.statusbar.showMessage("IPA or PAK directory field must not be empty!", 3000)
+        elif self.chb_parse_log.isChecked():
+            if self.fld_proj_path.text() != "" and self.fld_proj_name.text() != "":
+                pass
+            else:
+                self.statusbar.showMessage("Proj name and proj directory fields must not be empty!", 3000)
+        elif self.chb_send_to_email.isChecked():
+            if self.fld_email.text() != "" and self.fld_password.text() != "" and self.fld_rcpnts_email.text() != "":
+                pass
+            else:
+                self.statusbar.showMessage("Authorization and Send to.. fields must not be empty!", 3000)
+        elif self.chb_unpackpak.isChecked():
+            if self.fld_proj_path.text() != "" and self.fld_ipa_or_pak_dir.text() != "":
+                pass
+            else:
+                self.statusbar.showMessage("Proj directory and IPA or PAK fields must noyt be empty!", 3000)
+        else:
+            self.statusbar.showMessage("Choose options!", 3000)
 
     def on_click_cancel(self):
         pass
