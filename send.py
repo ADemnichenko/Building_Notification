@@ -17,6 +17,7 @@ class MailSender:
         self.rcpnts_email = ""
         self.msg = ""
         self.check = CheckFields()
+
     def testConection(self, auth_email, auth_password):
         if auth_email != "" and auth_password != "":
             if self.check.CheckMail(auth_email) and self.check.CheckPassword(auth_password):
@@ -35,12 +36,12 @@ class MailSender:
         else:
             return "Email and Password fields must not be empty!"
 
-    def send(self):
+    def send(self, auth_email, auth_password, rcpnts_email, msg):
         self.server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
         try:
-            self.server.login(self.auth_email, self.auth_password)
+            self.server.login(auth_email, auth_password)
             try:
-                self.server.sendmail(self.auth_email, self.rcpnts_email, self.msg)
+                self.server.sendmail(auth_email, rcpnts_email, msg)
                 return "Message is send!"
             finally:
                 self.server.quit()

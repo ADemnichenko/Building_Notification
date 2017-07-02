@@ -7,17 +7,20 @@ class UnpakingProject:
         self.unpak_path = unpack_path
         self.ipa_folder_name = "extractedIPA"
         self.pak_folder_name = "unpakedPAK"
+
     def ResearchFile(self, path, extension):
         for dir, subdirs, files in os.walk(path):
             for filename in files:
                 if filename.endswith(extension):
                     return filename, dir, True
+
     def UnzipIPA(self):
         search = self.ResearchFile(self.build_path, ".ipa")
         if True in search:
             zip_file = zipfile.ZipFile("{0}/{1}".format(self.build_path, search[0]), 'r')
             if zip_file.extractall("{0}/{1}".format(self.build_path, self.ipa_folder_name)):
                 zip_file.close()
+
     def UnpakPAK(self):
         search = self.ResearchFile("{0}/{1}".format(self.build_path,self.ipa_folder_name), ".pak")
         if True in search:
@@ -37,7 +40,7 @@ class UnpakingProject:
                     total_size = 0
                 break
 
-unpak = UnpakingProject()
-unpak.UnzipIPA()
-unpak.UnpakPAK()
-unpak.GetPackagesSize()
+# unpak = UnpakingProject()
+# unpak.UnzipIPA()
+# unpak.UnpakPAK()
+# unpak.GetPackagesSize()
