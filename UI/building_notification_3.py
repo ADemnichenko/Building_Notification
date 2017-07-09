@@ -412,7 +412,6 @@ class Ui_MainWindow(object):
         self.frame_7.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_7.setObjectName("frame_7")
         self.gridLayout_13 = QtWidgets.QGridLayout(self.frame_7)
-        self.gridLayout_13.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_13.setObjectName("gridLayout_13")
         self.chb_parse_log = QtWidgets.QCheckBox(self.frame_7)
         self.chb_parse_log.setMinimumSize(QtCore.QSize(108, 31))
@@ -449,28 +448,6 @@ class Ui_MainWindow(object):
 "}")
         self.chb_send_to_email.setObjectName("chb_send_to_email")
         self.gridLayout_13.addWidget(self.chb_send_to_email, 0, 2, 1, 1)
-        self.chb_unpackpak = QtWidgets.QCheckBox(self.frame_7)
-        self.chb_unpackpak.setMinimumSize(QtCore.QSize(108, 31))
-        self.chb_unpackpak.setMaximumSize(QtCore.QSize(108, 31))
-        self.chb_unpackpak.setStyleSheet("QCheckBox{\n"
-"color: rgb(203, 203, 203);\n"
-"background-color: rgb(117, 117, 117);\n"
-"border-radius: 8px;\n"
-"padding-left : 8px;\n"
-"}")
-        self.chb_unpackpak.setObjectName("chb_unpackpak")
-        self.gridLayout_13.addWidget(self.chb_unpackpak, 1, 0, 1, 1)
-        self.chb_get_size = QtWidgets.QCheckBox(self.frame_7)
-        self.chb_get_size.setMinimumSize(QtCore.QSize(108, 31))
-        self.chb_get_size.setMaximumSize(QtCore.QSize(108, 31))
-        self.chb_get_size.setStyleSheet("QCheckBox{\n"
-"color: rgb(203, 203, 203);\n"
-"background-color: rgb(117, 117, 117);\n"
-"border-radius: 8px;\n"
-"padding-left : 8px;\n"
-"}")
-        self.chb_get_size.setObjectName("chb_get_size")
-        self.gridLayout_13.addWidget(self.chb_get_size, 1, 1, 1, 1)
         self.frame_11 = QtWidgets.QFrame(self.frame_7)
         self.frame_11.setMinimumSize(QtCore.QSize(360, 60))
         self.frame_11.setMaximumSize(QtCore.QSize(360, 60))
@@ -505,6 +482,17 @@ class Ui_MainWindow(object):
         self.pb_progress.setObjectName("pb_progress")
         self.gridLayout_17.addWidget(self.pb_progress, 1, 0, 1, 1)
         self.gridLayout_13.addWidget(self.frame_11, 2, 0, 1, 3)
+        self.chb_get_size = QtWidgets.QCheckBox(self.frame_7)
+        self.chb_get_size.setMinimumSize(QtCore.QSize(108, 31))
+        self.chb_get_size.setMaximumSize(QtCore.QSize(108, 31))
+        self.chb_get_size.setStyleSheet("QCheckBox{\n"
+"color: rgb(203, 203, 203);\n"
+"background-color: rgb(117, 117, 117);\n"
+"border-radius: 8px;\n"
+"padding-left : 8px;\n"
+"}")
+        self.chb_get_size.setObjectName("chb_get_size")
+        self.gridLayout_13.addWidget(self.chb_get_size, 1, 0, 1, 1)
         self.gridLayout_14.addWidget(self.frame_7, 0, 0, 1, 1)
         self.gridLayout_15.addWidget(self.groupBox_6, 2, 0, 1, 1)
         self.frame_10 = QtWidgets.QFrame(self.frame_8)
@@ -644,24 +632,13 @@ class Ui_MainWindow(object):
         self.timeEdit.setDisplayFormat(_translate("MainWindow", "HH:mm:ss"))
         self.groupBox_6.setTitle(_translate("MainWindow", "Options"))
         self.chb_parse_log.setText(_translate("MainWindow", "Parse Log"))
-        self.chb_extract_ipa.setText(_translate("MainWindow", "Extract IPA"))
+        self.chb_extract_ipa.setText(_translate("MainWindow", "Unpak build"))
         self.chb_send_to_email.setText(_translate("MainWindow", "Sent to Email"))
-        self.chb_unpackpak.setText(_translate("MainWindow", "Unpak PAK"))
-        self.chb_get_size.setText(_translate("MainWindow", "Get Size"))
         self.label_4.setText(_translate("MainWindow", "Parse log..."))
+        self.chb_get_size.setText(_translate("MainWindow", "Get Size"))
         self.btn_cancel.setText(_translate("MainWindow", "Cancel"))
         self.btn_start.setText(_translate("MainWindow", "Start"))
         self.groupBox_7.setTitle(_translate("MainWindow", "Send to..."))
         self.fld_rcpnts_email.setPlaceholderText(_translate("MainWindow", "Enter Recipients Emails"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.ntfctn), _translate("MainWindow", "Notification"))
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
 

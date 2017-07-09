@@ -9,10 +9,16 @@ class UnpakingProject:
         self.pak_folder_name = "unpakedPAK"
 
     def ResearchFile(self, path, extension):
+        result = False
+        file = ""
+        directory = ""
         for dir, subdirs, files in os.walk(path):
             for filename in files:
                 if filename.endswith(extension):
-                    return filename, dir, True
+                    result = True
+                    file = filename
+                    directory = dir
+        return file, directory, result
 
     def UnzipIPA(self):
         search = self.ResearchFile(self.build_path, ".ipa")
@@ -27,18 +33,28 @@ class UnpakingProject:
             with open("{0}/unpak.bat".format(self.build_path), 'w') as batch:
                 batch.write("{0}/UnrealPak.exe {1}/{2} -Extract {3}/{4}".format(self.unpak_path, search[1], search[0], self.build_path, self.pak_folder_name))
             os.system("{0}/unpak.bat".format(self.build_path))
-    def GetPackagesSize(self):
+
+    def GetPackagesSize(self, extractState = False):
         total_size = 0
-        for dirpath, dirnames, filenames in os.walk("{0}/{1}".format(self.build_path, self.pak_folder_name)):
-            if dirpath.find("Packages") != -1:
-                for dirname in os.listdir(dirpath):
-                    for drp, drn, fn in os.walk("{0}/{1}".format(dirpath, dirname)):
-                        for f in fn:
-                            fp = os.path.join(drp, f)
-                            total_size += os.path.getsize(fp)
-                    print("{0} = {1}Mb".format(dirname, total_size / 1000000))
-                    total_size = 0
-                break
+        if extractState:
+            for dirpath, dirnames, filenames in os.walk("{0}/{1}".format(self.build_path, self.pak_folder_name)):
+                if dirpath.find("Packages") != -1:
+                    for dirname in os.listdir(dirpath):
+                        for drp, drn, fn in os.walk("{0}/{1}".format(dirpath, dirname)):
+                            for f in fn:
+                                fp = os.path.join(drp, f)
+                                total_size += os.path.getsize(fp)
+                        print("{0} = {1}Mb".format(dirname, total_size / 1000000))
+                        total_size = 0
+                    break
+        else:
+            for dirpath, dirnames, filenames in os.walk(self.build_path):
+                for file in filenames:
+                    if file.endswith(".ipa"):
+                        fp = os.path.join(dirpath, file)
+                        ipa_size = os.path.getsize(fp)
+                        return ipa_size
+
 
 # unpak = UnpakingProject()
 # unpak.UnzipIPA()

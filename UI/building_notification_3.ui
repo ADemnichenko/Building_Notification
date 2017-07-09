@@ -954,18 +954,6 @@ QGroupBox::title {
                <enum>QFrame::Raised</enum>
               </property>
               <layout class="QGridLayout" name="gridLayout_13">
-               <property name="leftMargin">
-                <number>0</number>
-               </property>
-               <property name="topMargin">
-                <number>0</number>
-               </property>
-               <property name="rightMargin">
-                <number>0</number>
-               </property>
-               <property name="bottomMargin">
-                <number>0</number>
-               </property>
                <item row="0" column="0">
                 <widget class="QCheckBox" name="chb_parse_log">
                  <property name="minimumSize">
@@ -1022,7 +1010,7 @@ padding-left : 8px;
 }</string>
                  </property>
                  <property name="text">
-                  <string>Extract IPA</string>
+                  <string>Unpak build</string>
                  </property>
                 </widget>
                </item>
@@ -1050,60 +1038,6 @@ padding-left : 8px;
                  </property>
                  <property name="text">
                   <string>Sent to Email</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="0">
-                <widget class="QCheckBox" name="chb_unpackpak">
-                 <property name="minimumSize">
-                  <size>
-                   <width>108</width>
-                   <height>31</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>108</width>
-                   <height>31</height>
-                  </size>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">QCheckBox{
-color: rgb(203, 203, 203);
-background-color: rgb(117, 117, 117);
-border-radius: 8px;
-padding-left : 8px;
-}</string>
-                 </property>
-                 <property name="text">
-                  <string>Unpak PAK</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
-                <widget class="QCheckBox" name="chb_get_size">
-                 <property name="minimumSize">
-                  <size>
-                   <width>108</width>
-                   <height>31</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>108</width>
-                   <height>31</height>
-                  </size>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">QCheckBox{
-color: rgb(203, 203, 203);
-background-color: rgb(117, 117, 117);
-border-radius: 8px;
-padding-left : 8px;
-}</string>
-                 </property>
-                 <property name="text">
-                  <string>Get Size</string>
                  </property>
                 </widget>
                </item>
@@ -1198,6 +1132,33 @@ QProgressBar::chunk {
                    </widget>
                   </item>
                  </layout>
+                </widget>
+               </item>
+               <item row="1" column="0">
+                <widget class="QCheckBox" name="chb_get_size">
+                 <property name="minimumSize">
+                  <size>
+                   <width>108</width>
+                   <height>31</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>108</width>
+                   <height>31</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QCheckBox{
+color: rgb(203, 203, 203);
+background-color: rgb(117, 117, 117);
+border-radius: 8px;
+padding-left : 8px;
+}</string>
+                 </property>
+                 <property name="text">
+                  <string>Get Size</string>
+                 </property>
                 </widget>
                </item>
               </layout>

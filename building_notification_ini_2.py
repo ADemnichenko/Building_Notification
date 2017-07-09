@@ -4,10 +4,10 @@ import time
 from setttings import UserSettings
 from notification import check_build_status
 from send import MailSender
-from UI import  building_notification_2
+from UI import  building_notification_3
 from test import UnpakingProject
 
-class Build_Notification_init(building_notification_2.Ui_MainWindow, QtWidgets.QMainWindow):
+class Build_Notification_init(building_notification_3.Ui_MainWindow, QtWidgets.QMainWindow):
     def __init__(self):
         super(Build_Notification_init, self).__init__()
         self.setupUi(self)
@@ -27,16 +27,18 @@ class Build_Notification_init(building_notification_2.Ui_MainWindow, QtWidgets.Q
         self.fails_count = 0
         self.sucess_count = 0
         self.log_file_path = ""
+        self.checkbox_check = []
+        self.extract_ipa_check = False
 
         #Unpucking
-        self.unpack = UnpakingProject()
+        self.unpack = UnpakingProject(self.fld_ipa_or_pak_dir.text().strip())
 
         #For send
         self.mail = MailSender()
 
         #Threading
         self.build_thread = Thread()
-        self.build_thread.signal.connect(self.parseLog, QtCore.Qt.QueuedConnection)
+        self.build_thread.signal.connect(self.optionsLaunch, QtCore.Qt.QueuedConnection)
 
         #Save Data Event
         self.fld_proj_name.textChanged.connect(
@@ -53,6 +55,11 @@ class Build_Notification_init(building_notification_2.Ui_MainWindow, QtWidgets.Q
             lambda: self.statusbar.showMessage(self.settings.saveSettings(recipients_email = self.fld_rcpnts_email.text()), 3000))
 
         #Setting up events for  pressing buttons
+        self.chb_parse_log.stateChanged.connect(lambda: self.checkboxCheck())
+        self.chb_send_to_email.stateChanged.connect(lambda: self.checkboxCheck())
+        self.chb_get_size.stateChanged.connect(lambda: self.checkboxCheck())
+        self.chb_extract_ipa.stateChanged.connect(lambda: self.checkboxCheck())
+
         self.btn_start.clicked.connect(lambda: self.on_click_start())
         self.btn_cancel.clicked.connect(lambda: self.on_click_cancel())
         self.btn_connection.clicked.connect(
@@ -62,58 +69,78 @@ class Build_Notification_init(building_notification_2.Ui_MainWindow, QtWidgets.Q
         self.btn_ipa_or_pak_dir.clicked.connect(
             lambda: self.fld_ipa_or_pak_dir.setText(self.on_click_get_path(self.fld_ipa_or_pak_dir.text())))
 
-    def parseLog(self, signal):
-        m, s = divmod(signal, 60)
+    def checkboxCheck(self):
+        self.checkbox_check = self.chb_extract_ipa.checkState(),\
+                              self.chb_parse_log.checkState(),\
+                              self.chb_get_size.checkState(),\
+                              self.chb_send_to_email.checkState()
+
+    def checkFields(self, *args):
+        for fld in args:
+            if fld == "":
+                result =  False
+                break
+            else:
+                result =  True
+        return result
+
+    def getBuildTime(self, val):
+        m, s = divmod(val, 60)
         h, m = divmod(m, 60)
         self.timeEdit.setTime(QtCore.QTime(h, m, s))
-        if signal % 60 == 0:
-            f_c, s_c = check_build_status(self.log_file_path)
-            if f_c > self.fails_count : build_status = "BUILD FAILED!"
-            elif s_c > self.sucess_count : build_status = "BUILD SUCCESSFUL!"
-            else: build_status = ""
-            if build_status != "":
-                self.mail.send(self.fld_email.text(), self.fld_password.text(), self.fld_rcpnts_email.text(), build_status)
-                self.build_thread.terminate()
-                self.btn_start.setDisabled(False)
+        return self.timeEdit.text()
+
+    def optionsLaunch(self, signal):
+        if self.chb_parse_log.isChecked():
+            build_time = self.getBuildTime(signal)
+            if signal % 60 == 0:
+                f_c, s_c = check_build_status(self.log_file_path)
+                if f_c > self.fails_count : build_status = "BUILD FAILED!"
+                elif s_c > self.sucess_count : build_status = "BUILD SUCCESSFUL!"
+                else: build_status = ""
+                if build_status != "":
+                    if self.chb_extract_ipa.isChecked():
+                        self.unpack.UnzipIPA()
+                        self.unpack.UnpakPAK()
+                        self.extract_ipa_check = True
+                    else:
+                        self.extract_ipa_check = False
+                    if self.chb_get_size.isChecked():
+                        self.unpack.GetPackagesSize(self.extract_ipa_check)
+                    if self.chb_send_to_email.isChecked():
+                        self.mail.send(self.fld_email.text(), self.fld_password.text(), self.fld_rcpnts_email.text(), build_status)
+                    self.build_thread.terminate()
+                    self.btn_start.setDisabled(False)
+        else:
+            if self.chb_extract_ipa.isChecked():
+                self.unpack.UnzipIPA()
+                self.unpack.UnpakPAK()
+                self.extract_ipa_check = True
+            else:
+                self.extract_ipa_check = False
+            if self.chb_get_size.isChecked():
+                size = self.unpack.GetPackagesSize(self.extract_ipa_check)
+            if self.chb_send_to_email.isChecked():
+                self.mail.send(self.fld_email.text(), self.fld_password.text(), self.fld_rcpnts_email.text(), size)
+            self.build_thread.terminate()
+            self.btn_start.setDisabled(False)
 
     def on_click_start(self):
-        if self.fld_proj_name.text() != "" and self.fld_proj_path.text() != "":
-            self.btn_start.setDisabled(True)
-            self.log_file_path = self.unpack.ResearchFile(self.fld_proj_path.text().replace("\n", ""), ".log")
-            if True in self.log_file_path:
-                self.log_file_path = "{0}/{1}".format(self.log_file_path[1], self.log_file_path[0])
-            self.fails_count, self.sucess_count = check_build_status(self.log_file_path)
-            self.build_thread.start()
+        if 2 in self.checkbox_check:
+            if self.chb_parse_log.isChecked():
+                if self.checkFields(self.fld_proj_name.text().strip(), self.fld_proj_path.text().strip()):
+                    self.log_file_path = self.unpack.ResearchFile(self.fld_proj_path.text().strip(), ".log")
+                    if True in self.log_file_path:
+                        self.log_file_path = "{0}/{1}".format(self.log_file_path[1], self.log_file_path[0])
+                        self.fails_count, self.sucess_count = check_build_status(self.log_file_path)
+                        self.btn_start.setDisabled(True)
+                        self.build_thread.start()
+                    else:
+                        self.statusbar.showMessage("Log file not found!", 3000)
+                else:
+                    self.statusbar.showMessage("Proj name and proj dir fields must not be empty!", 3000)
         else:
-            return self.statusbar.showMessage("Proj name and proj directory fields must not be empty!", 5000)
-
-        # if self.chb_extract_ipa.isChecked():
-        #     if self.fld_ipa_or_pak_dir.text() != "":
-        #         pass
-        #     else:
-        #         self.statusbar.showMessage("IPA or PAK directory field must not be empty!", 3000)
-        # elif self.chb_get_size.isChecked():
-        #     if self.fld_ipa_or_pak_dir.text():
-        #         pass
-        #     else:
-        #         self.statusbar.showMessage("IPA or PAK directory field must not be empty!", 3000)
-        # elif self.chb_parse_log.isChecked():
-        #     if self.fld_proj_path.text() != "" and self.fld_proj_name.text() != "":
-        #         pass
-        #     else:
-        #         self.statusbar.showMessage("Proj name and proj directory fields must not be empty!", 3000)
-        # elif self.chb_send_to_email.isChecked():
-        #     if self.fld_email.text() != "" and self.fld_password.text() != "" and self.fld_rcpnts_email.text() != "":
-        #         pass
-        #     else:
-        #         self.statusbar.showMessage("Authorization and Send to.. fields must not be empty!", 3000)
-        # elif self.chb_unpackpak.isChecked():
-        #     if self.fld_proj_path.text() != "" and self.fld_ipa_or_pak_dir.text() != "":
-        #         pass
-        #     else:
-        #         self.statusbar.showMessage("Proj directory and IPA or PAK fields must noyt be empty!", 3000)
-        # else:
-        #     self.statusbar.showMessage("Choose options!", 3000)
+            self.statusbar.showMessage("Select option!", 3000)
 
     def on_click_cancel(self):
         self.btn_start.setDisabled(False)
