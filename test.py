@@ -34,6 +34,7 @@ class UnpakingProject:
                 batch.write("{0}/UnrealPak.exe {1}/{2} -Extract {3}/{4}".format(self.unpak_path, search[1], search[0], self.build_path, self.pak_folder_name))
             os.system("{0}/unpak.bat".format(self.build_path))
 
+
     def GetPackagesSize(self, extractState = False):
         total_size = 0
         if extractState:

@@ -17,6 +17,7 @@ def checkFields(*args):
             result =  True
     return result
 
+
 def buildTime(val):
     m, s = divmod(val, 60)
     h, m = divmod(m, 60)

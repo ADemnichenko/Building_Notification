@@ -22,6 +22,7 @@ class UserSettings():
                     config.write(key + " = " + self.config_params.get(key).replace("\n", "") + "\n")
                 return kwargs.get(k)
 
+
     def checkSettings(self):
         try:
             with open(os.path.abspath(os.path.curdir) + "/" + self.config_filename, "r") as config:

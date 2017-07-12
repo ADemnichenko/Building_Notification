@@ -129,6 +129,7 @@ class Build_Notification_init(building_notification_3.Ui_MainWindow, QtWidgets.Q
                 self.parse_log.terminate()
                 self.btn_start.setDisabled(False)
 
+
     def on_click_start(self):
         if 2 in self.checkbox_check:
             if self.fieldsControl():
