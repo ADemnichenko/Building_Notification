@@ -1,6 +1,7 @@
 from PyQt5 import QtWidgets, QtCore, QtGui
 import sys
 import time
+from queue import Queue
 from setttings import UserSettings
 from notification import check_build_status, buildTime, checkFields
 from send import MailSender
@@ -12,6 +13,13 @@ class Build_Notification_init(building_notification_3.Ui_MainWindow, QtWidgets.Q
         super(Build_Notification_init, self).__init__()
         self.setupUi(self)
         self.tabWidget.setCurrentWidget(self.stngs)
+
+        self.chb_get_size.setChecked(True)
+        self.chb_send_to_email.setChecked(True)
+        self.chb_extract_ipa.setChecked(True)
+        self.chb_get_size.setVisible(False)
+        self.chb_send_to_email.setVisible(False)
+        self.chb_extract_ipa.setVisible(False)
 
         # Settings
         self.settings = UserSettings()
@@ -30,7 +38,8 @@ class Build_Notification_init(building_notification_3.Ui_MainWindow, QtWidgets.Q
         self.sucess_count = 0
         self.checkbox_check = []
         self.extract_ipa_check = False
-        self.send_msg = ""
+        self.send_msg = "test"
+        self.build_status = ""
 
         #Unpucking
         self.unpack = UnpakingProject(self.fld_ipa_or_pak_dir.text().strip())
@@ -38,11 +47,12 @@ class Build_Notification_init(building_notification_3.Ui_MainWindow, QtWidgets.Q
         #For send
         self.mail = MailSender()
 
+        #Queue
+        self.queue = Queue()
+
         #Threading
         self.parse_log = Thread()
-        self.send = Thread()
         self.parse_log.signal.connect(self.parseLog, QtCore.Qt.QueuedConnection)
-        self.parse_log.finished.connect(self.sendMsg, QtCore.Qt.QueuedConnection)
 
         #Save Data Event
         self.fld_proj_name.textChanged.connect(
@@ -60,24 +70,25 @@ class Build_Notification_init(building_notification_3.Ui_MainWindow, QtWidgets.Q
 
         #Setting up events for  pressing buttons
         self.chb_parse_log.stateChanged.connect(lambda: self.checkboxStateChanged())
-        self.chb_send_to_email.stateChanged.connect(lambda: self.checkboxStateChanged())
-        self.chb_get_size.stateChanged.connect(lambda: self.checkboxStateChanged())
-        self.chb_extract_ipa.stateChanged.connect(lambda: self.checkboxStateChanged())
 
         self.btn_start.clicked.connect(lambda: self.on_click_start())
         self.btn_cancel.clicked.connect(lambda: self.on_click_cancel())
         self.btn_connection.clicked.connect(
-            lambda: self.statusbar.showMessage(self.mail.testConection(self.fld_email.text(), self.fld_password.text())))
+            lambda: self.statusbar.showMessage(self.mail.testConection(self.fld_email.text(), self.fld_password.text()), 3000))
         self.btn_proj_dir.clicked.connect(
             lambda: self.fld_proj_path.setText(self.on_click_get_path(self.fld_proj_path.text())))
         self.btn_ipa_or_pak_dir.clicked.connect(
             lambda: self.fld_ipa_or_pak_dir.setText(self.on_click_get_path(self.fld_ipa_or_pak_dir.text())))
 
     def checkboxStateChanged(self):
-        self.checkbox_check = self.chb_parse_log.checkState(), \
-                              self.chb_send_to_email.checkState(), \
-                              self.chb_get_size.checkState(), \
-                              self.chb_extract_ipa.checkState()
+        if self.chb_parse_log.isChecked():
+            self.chb_get_size.setVisible(True)
+            self.chb_send_to_email.setVisible(True)
+            self.chb_extract_ipa.setVisible(True)
+        else:
+            self.chb_get_size.setVisible(False)
+            self.chb_send_to_email.setVisible(False)
+            self.chb_extract_ipa.setVisible(False)
 
     def fieldsControl(self):
         if self.chb_parse_log.isChecked():
@@ -107,41 +118,54 @@ class Build_Notification_init(building_notification_3.Ui_MainWindow, QtWidgets.Q
         return result
 
     def sendMsg(self):
-        if self.chb_send_to_email.isChecked():
-            if self.send_msg != "":
-                status = self.mail.send(self.fld_email.text(),
-                               self.fld_password.text(),
-                               self.fld_rcpnts_email.text(),
-                               self.send_msg)
-                self.statusbar.showMessage(status, 3000)
+        status = self.mail.send(self.fld_email.text(),
+                            self.fld_password.text(),
+                            self.fld_rcpnts_email.text(),
+                            self.send_msg)
+        self.statusbar.showMessage(status, 3000)
 
     def parseLog(self, signal):
         h,m,s = buildTime(signal)
         self.timeEdit.setTime(QtCore.QTime(h, m, s))
         if signal % 60 == 0:
             f_c, s_c = check_build_status(self.log_file_path)
-            if f_c > self.fails_count : build_status = "BUILD FAILED!"
-            elif s_c > self.sucess_count : build_status = "BUILD SUCCESSFUL!"
-            else: build_status = ""
-            if build_status != "":
-                self.send_msg = "Build Status: {0}\n " \
-                                "Build Time: {1}\n".format(build_status, self.timeEdit.text())
+            if f_c > self.fails_count : self.build_status = False
+            elif s_c > self.sucess_count : self.build_status = True
+            if self.build_status is True:
+                self.send_msg = "Build Status -  Build Succesful!\n" \
+                                "Build Time -  {0}\n".format(self.timeEdit.text())
+                if self.chb_extract_ipa.isChecked():
+                    self.unpack2 = UnpakingProject(self.fld_ipa_or_pak_dir.text().strip())
+                    self.unpack2.UnzipIPA()
+                    # self.unpack2.UnpakPAK()
+                    self.send_msg += "".join(self.unpack2.GetPackagesSize())
+                if self.chb_get_size.isChecked():
+                    self.send_msg += "".join(self.unpack2.GetPackagesSize())
+                if self.chb_send_to_email.isChecked():
+                    self.sendMsg()
                 self.parse_log.terminate()
+                self.build_status = ""
                 self.btn_start.setDisabled(False)
-
+            elif self.build_status is False:
+                self.parse_log.terminate()
+                self.build_status = ""
+                self.btn_start.setDisabled(False)
+                if self.chb_send_to_email.isChecked():
+                    self.send_msg = "Build Status -  Build False!\n" \
+                                    "Build Time -  {0}\n".format(self.timeEdit.text())
+                    self.sendMsg()
 
     def on_click_start(self):
-        if 2 in self.checkbox_check:
+        if self.chb_parse_log.isChecked():
             if self.fieldsControl():
-                if self.chb_parse_log.isChecked():
-                    file, directory, checker = self.unpack.ResearchFile("{0}/Saved/Logs".format(self.fld_proj_path.text().strip()), ".log")
-                    if checker:
-                        self.log_file_path = "{0}/{1}".format(directory, file)
-                        self.fails_count, self.sucess_count = check_build_status(self.log_file_path)
-                        self.btn_start.setDisabled(True)
-                        self.parse_log.start()
-                    else:
-                        self.statusbar.showMessage("Log file not found!", 3000)
+                file, directory, checker = self.unpack.ResearchFile("{0}/Saved/Logs".format(self.fld_proj_path.text().strip()), ".log")
+                if checker:
+                    self.log_file_path = "{0}/{1}".format(directory, file)
+                    self.fails_count, self.sucess_count = check_build_status(self.log_file_path)
+                    self.btn_start.setDisabled(True)
+                    self.parse_log.start()
+                else:
+                    self.statusbar.showMessage("Log file not found!", 3000)
         else:
             self.statusbar.showMessage("Select option!", 3000)
 

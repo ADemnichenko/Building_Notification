@@ -1,5 +1,6 @@
 import smtplib
 import re
+import zipfile
 
 class CheckFields:
     def __init__(self):
@@ -47,3 +48,7 @@ class MailSender:
                 self.server.quit()
         except Exception as exc:
             return "error: {0}".format(exc)
+
+
+# zip_file = zipfile.ZipFile("C:/Users/trick_house/Desktop/IPA\\IOS/LiS_Morning.ipa", 'r')
+# zip_file.extractall("C:/Users/trick_house/Desktop/IPA/IOS/1")
