@@ -1,4 +1,4 @@
-#Check build status
+import os
 def check_build_status(path):
     fails_counter = 0
     success_counter = 0
@@ -16,8 +16,3 @@ def checkFields(*args):
         else:
             result =  True
     return result
-
-def buildTime(val):
-    m, s = divmod(val, 60)
-    h, m = divmod(m, 60)
-    return h,m,s

@@ -8,18 +8,6 @@ class UnpakingProject:
         self.ipa_folder_name = "extractedIPA"
         self.pak_folder_name = "unpakedPAK"
 
-    def ResearchFile(self, path, extension):
-        result = False
-        file = ""
-        directory = ""
-        for dir, subdirs, files in os.walk(path):
-            for filename in files:
-                if filename.endswith(extension):
-                    result = True
-                    file = filename
-                    directory = dir
-        return file, directory, result
-
     def UnzipIPA(self):
         search = self.ResearchFile(self.build_path, ".ipa")
         if True in search:
