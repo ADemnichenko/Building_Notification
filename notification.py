@@ -1,4 +1,3 @@
-import os
 def check_build_status(path):
     fails_counter = 0
     success_counter = 0

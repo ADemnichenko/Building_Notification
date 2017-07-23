@@ -3,6 +3,7 @@ import sys
 import time
 import os
 import zipfile
+from subprocess import call
 from setttings import UserSettings
 from notification import check_build_status, checkFields
 from send import MailSender
@@ -177,7 +178,7 @@ class Options():
     def resetParams(self):
         self.send_msg = ""
         self.build_status = ""
-        self.log_file_path = ""
+        self.file_path = ""
         self.fails_count, self.sucess_count = "", ""
 
     def researchFile(self, path, extension):
@@ -209,9 +210,11 @@ class Options():
                         self.copyUiClass.parse_log.terminate()
                         self.copyUiClass.btn_start.setDisabled(False)
                         self.extractIPA()
+                        self.unpackPAK()
                         self.getSize(".ipa")
                         self.getSize(".pak")
                         self.sendMessage()
+
                         self.copyUiClass.chb_send_to_email.setDisabled(False)
                         self.copyUiClass.chb_get_size.setDisabled(False)
                         self.copyUiClass.chb_extract_ipa.setDisabled(False)
@@ -223,10 +226,18 @@ class Options():
                         self.send_msg = "Build Status -  Build False!\n" \
                                         "Build Time -  {0}\n".format(self.copyUiClass.timeEdit.text())
                         self.sendMessage()
+
                         self.copyUiClass.chb_send_to_email.setDisabled(False)
                         self.copyUiClass.chb_get_size.setDisabled(False)
                         self.copyUiClass.chb_extract_ipa.setDisabled(False)
                         self.copyUiClass.chb_parse_log.setDisabled(False)
+
+    def unpackPAK(self):
+        unpack_path = ""
+        if self.copyUiClass.chb_extract_ipa.isChecked():
+            pak_folder_name = "unpackPAK"
+            if self.researchFile(self.copyUiClass.fld_ipa_or_pak_dir.text().strip(), ".pak") is True:
+                call("\"{0}/UnrealPak\" {1} -Extract {2}/{3}".format(unpack_path, self.file_path, self.copyUiClass.fld_ipa_or_pak_dir.text().strip(), pak_folder_name))
 
     def extractIPA(self):
         if self.copyUiClass.chb_extract_ipa.isChecked():

@@ -1,6 +1,5 @@
 import smtplib
 import re
-import zipfile
 
 class CheckFields:
     def __init__(self):

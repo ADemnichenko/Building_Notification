@@ -1,6 +1,5 @@
 import os
 import zipfile
-
 class UnpakingProject:
     def __init__(self, build_path ="C:/Users/ademnichenko/Desktop/anim_compress/IOS", unpack_path = "C:/Program Files/Epic Games/UE_4.15/Engine/Binaries/Win64"):
         self.build_path = build_path
@@ -48,3 +47,6 @@ class UnpakingProject:
                         ipa_size = os.path.getsize(fp)
                         size_statistic += size_statistic.join("IPA Size - {0}Mb\n".format(ipa_size / 1000000))
         return size_statistic
+
+a = "/Users/Shared/Epic Games/UE_4.15/Engine/Binaries/Mac/UnrealPak /Users/aleksandr/UE4_projects/PyPlugin/IPA/extractIPA/Payload/LiS.app/cookeddata/lis/content/paks/lis-ios.pak -extract /Users/aleksandr/UE4_projects/PyPlugin/IPA"
+os.system(a)
