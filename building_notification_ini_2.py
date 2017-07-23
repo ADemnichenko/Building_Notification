@@ -2,6 +2,7 @@ from PyQt5 import QtWidgets, QtCore, QtGui
 import sys
 import time
 import os
+import zipfile
 from setttings import UserSettings
 from notification import check_build_status, checkFields
 from send import MailSender
@@ -20,8 +21,8 @@ class Build_Notification_init(building_notification_3.Ui_MainWindow, QtWidgets.Q
         self.chb_send_to_email.setEnabled(False)
         self.chb_extract_ipa.setEnabled(False)
 
-#JSON is working
         # Settings
+        self.mail = MailSender()
         self.options = Options(self)
         self.settings = UserSettings()
         self.config = self.settings.checkSettings()
@@ -31,13 +32,10 @@ class Build_Notification_init(building_notification_3.Ui_MainWindow, QtWidgets.Q
         self.fld_email.setText(self.config.get("email", ""))
         self.fld_password.setText(self.config.get("password", ""))
         self.fld_proj_name.setText(self.config.get("project_name", ""))
-#-------------------------------
 
         #Threading
         self.parse_log = Thread()
-        self.send_message = Thread()
         self.parse_log.signal.connect(self.options.parseStart, QtCore.Qt.QueuedConnection)
-        self.parse_log.signal.connect(self.options.sendMessage, QtCore.Qt.QueuedConnection)
 
         #Save Data Event
         self.fld_proj_name.textChanged.connect(
@@ -109,7 +107,11 @@ class Build_Notification_init(building_notification_3.Ui_MainWindow, QtWidgets.Q
                 if self.options.researchFile("{0}/Saved/Logs".format(self.fld_proj_path.text().strip()), ".log"):
                     self.btn_start.setDisabled(True)
                     self.parse_log.start()
-                    self.send_message.start()
+
+                    self.chb_send_to_email.setDisabled(True)
+                    self.chb_get_size.setDisabled(True)
+                    self.chb_extract_ipa.setDisabled(True)
+                    self.chb_parse_log.setDisabled(True)
                 else:
                     self.statusbar.showMessage("Log file not found!", 3000)
         else:
@@ -119,6 +121,12 @@ class Build_Notification_init(building_notification_3.Ui_MainWindow, QtWidgets.Q
         self.btn_start.setDisabled(False)
         self.parse_log.terminate()
         self.options.resetParams()
+
+        self.chb_send_to_email.setDisabled(False)
+        self.chb_get_size.setDisabled(False)
+        self.chb_extract_ipa.setDisabled(False)
+        self.chb_parse_log.setDisabled(False)
+
         self.statusbar.showMessage("Canceled...", 5000)
 
     def on_click_get_path(self, start_dir = "" ):
@@ -157,15 +165,14 @@ class Build_Notification_init(building_notification_3.Ui_MainWindow, QtWidgets.Q
         else:
             event.ignore()
 
-
 class Options():
     def __init__(self, copyUiClass):
-        self.log_file_path = ""
+        self.file_path = ""
         self.copyUiClass = copyUiClass
         self.fails_count, self.sucess_count = "", ""
         self.build_status = ""
         self.send_msg = ""
-        self.mail = MailSender()
+        self.size_statistic = ""
 
     def resetParams(self):
         self.send_msg = ""
@@ -179,7 +186,7 @@ class Options():
             for filename in files:
                 if filename.endswith(extension):
                     result = True
-                    self.log_file_path = "{0}/{1}".format(dir, filename)
+                    self.file_path = "{0}/{1}".format(dir, filename)
         return result
 
     def buildTime(self, val):
@@ -190,37 +197,68 @@ class Options():
     def parseStart(self, signal):
         self.buildTime(signal)
         if self.fails_count == "" and self.sucess_count == "":
-            self.fails_count, self.sucess_count = check_build_status(self.log_file_path)
+            self.fails_count, self.sucess_count = check_build_status(self.file_path)
         else:
             if signal % 60 == 0:
-                    f_c, s_c = check_build_status(self.log_file_path)
+                    f_c, s_c = check_build_status(self.file_path)
                     if f_c > self.fails_count : self.build_status = False
                     elif s_c > self.sucess_count : self.build_status = True
-
                     if self.build_status is True:
                         self.send_msg = "Build Status -  Build Succesful!\n" \
                                         "Build Time -  {0}\n".format(self.copyUiClass.timeEdit.text())
                         self.copyUiClass.parse_log.terminate()
-                        self.build_status = ""
                         self.copyUiClass.btn_start.setDisabled(False)
+                        self.extractIPA()
+                        self.getSize(".ipa")
+                        self.getSize(".pak")
+                        self.sendMessage()
+                        self.copyUiClass.chb_send_to_email.setDisabled(False)
+                        self.copyUiClass.chb_get_size.setDisabled(False)
+                        self.copyUiClass.chb_extract_ipa.setDisabled(False)
+                        self.copyUiClass.chb_parse_log.setDisabled(False)
 
                     elif self.build_status is False:
                         self.copyUiClass.parse_log.terminate()
-                        self.build_status = ""
                         self.copyUiClass.btn_start.setDisabled(False)
                         self.send_msg = "Build Status -  Build False!\n" \
                                         "Build Time -  {0}\n".format(self.copyUiClass.timeEdit.text())
+                        self.sendMessage()
+                        self.copyUiClass.chb_send_to_email.setDisabled(False)
+                        self.copyUiClass.chb_get_size.setDisabled(False)
+                        self.copyUiClass.chb_extract_ipa.setDisabled(False)
+                        self.copyUiClass.chb_parse_log.setDisabled(False)
+
+    def extractIPA(self):
+        if self.copyUiClass.chb_extract_ipa.isChecked():
+            ipa_folder_name = "extractIPA"
+            if self.researchFile(self.copyUiClass.fld_ipa_or_pak_dir.text().strip(), ".ipa") is True:
+                zip_file = zipfile.ZipFile("{0}".format(self.file_path), 'r')
+                zip_file.extractall("{0}/{1}".format(self.copyUiClass.fld_ipa_or_pak_dir.text().strip(), ipa_folder_name))
+                zip_file.close()
+
+    def getSize(self, extension):
+        if self.copyUiClass.chb_get_size.isChecked():
+            for dirpath, dirnames, filenames in os.walk("{0}".format(self.copyUiClass.fld_ipa_or_pak_dir.text().strip())):
+                for f in filenames:
+                    if f.endswith(extension):
+                        fp = os.path.join(dirpath, f)
+                        size = os.path.getsize(fp)
+                        self.size_statistic += self.size_statistic.join(
+                            "{0} size - {1}Mb".format(f, size / 1000000))
+            self.send_msg += "{0}\n".format(self.size_statistic)
+            self.size_statistic = ""
+
     def sendMessage(self):
         if self.copyUiClass.chb_send_to_email.isChecked():
             if self.send_msg != "":
-                self.copyUiClass.statusbar.showMessage(self.mail.send(
+                self.copyUiClass.statusbar.showMessage(self.copyUiClass.mail.send(
                     self.copyUiClass.fld_email.text(),
                     self.copyUiClass.fld_password.text(),
                     self.copyUiClass.fld_rcpnts_email.text(),
                     self.send_msg), 3000)
-                self.copyUiClass.send_message.terminate()
         else:
-            self.copyUiClass.send_message.terminate()
+            with open("log.txt", "w") as log:
+                log.write(self.send_msg)
 
 class Thread(QtCore.QThread):
     signal = QtCore.pyqtSignal(int)
@@ -232,6 +270,7 @@ class Thread(QtCore.QThread):
             time.sleep(1)
             self.signal.emit(i)
             i += 1
+
 if __name__=='__main__':
     qapp = QtWidgets.QApplication(sys.argv)
     build_notify = Build_Notification_init()
