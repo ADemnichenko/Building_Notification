@@ -67,63 +67,6 @@ class Ui_MainWindow(object):
         self.gridLayout_9.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_9.setSpacing(0)
         self.gridLayout_9.setObjectName("gridLayout_9")
-        self.groupBox = QtWidgets.QGroupBox(self.frame_5)
-        self.groupBox.setMaximumSize(QtCore.QSize(391, 90))
-        self.groupBox.setStyleSheet("QGroupBox {\n"
-"    border: 1px solid gray;\n"
-"    border-radius: 10px;\n"
-"    margin-top: 1ex; /* leave space at the top for the title */\n"
-"}\n"
-"QGroupBox::title {\n"
-"    color: rgb(203, 203, 203);\n"
-"    subcontrol-origin: margin;\n"
-"    subcontrol-position: top center; /* position at the top center */\n"
-"    padding: 0 3px;\n"
-"}\n"
-"")
-        self.groupBox.setObjectName("groupBox")
-        self.gridLayout_3 = QtWidgets.QGridLayout(self.groupBox)
-        self.gridLayout_3.setObjectName("gridLayout_3")
-        self.frame = QtWidgets.QFrame(self.groupBox)
-        self.frame.setMinimumSize(QtCore.QSize(365, 57))
-        self.frame.setMaximumSize(QtCore.QSize(365, 57))
-        self.frame.setFrameShape(QtWidgets.QFrame.NoFrame)
-        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame.setObjectName("frame")
-        self.gridLayout_2 = QtWidgets.QGridLayout(self.frame)
-        self.gridLayout_2.setObjectName("gridLayout_2")
-        self.fld_proj_path = QtWidgets.QLineEdit(self.frame)
-        self.fld_proj_path.setMinimumSize(QtCore.QSize(306, 31))
-        self.fld_proj_path.setMaximumSize(QtCore.QSize(306, 31))
-        self.fld_proj_path.setStyleSheet("QLineEdit{\n"
-"color: rgb(203, 203, 203);\n"
-"background-color: rgb(117, 117, 117);\n"
-"border-top-left-radius: 8px;\n"
-"border-bottom-left-radius: 8px;\n"
-"padding: 5px;\n"
-"}")
-        self.fld_proj_path.setText("")
-        self.fld_proj_path.setAlignment(QtCore.Qt.AlignCenter)
-        self.fld_proj_path.setObjectName("fld_proj_path")
-        self.gridLayout_2.addWidget(self.fld_proj_path, 0, 0, 1, 1)
-        self.btn_proj_dir = QtWidgets.QToolButton(self.frame)
-        self.btn_proj_dir.setMinimumSize(QtCore.QSize(41, 31))
-        self.btn_proj_dir.setStyleSheet("QToolButton { /* all types of tool button */\n"
-"     border-left:1px solid rgb(75, 75, 75);\n"
-"    border-top-right-radius: 8px;\n"
-"    border-bottom-right-radius: 8px;\n"
-"    background-color: qlineargradient(spread:pad, x1:0.489045, y1:1, x2:0.472, y2:0, stop:0 rgba(111, 111, 111, 255), stop:1 rgba(155, 155, 155, 255));\n"
-"}\n"
-"QToolButton:pressed {\n"
-"    background-color: qlineargradient(spread:pad, x1:0.489045, y1:1, x2:0.472, y2:0, stop:0 rgba(158, 158, 158, 255), stop:1 rgba(203, 203, 203, 255));\n"
-"}\n"
-"QToolButton:hover {\n"
-"    background-color: qlineargradient(spread:pad, x1:0.489045, y1:1, x2:0.472, y2:0, stop:0 rgba(158, 158, 158, 255), stop:1 rgba(203, 203, 203, 255));\n"
-"}")
-        self.btn_proj_dir.setObjectName("btn_proj_dir")
-        self.gridLayout_2.addWidget(self.btn_proj_dir, 0, 1, 1, 1)
-        self.gridLayout_3.addWidget(self.frame, 0, 0, 1, 1)
-        self.gridLayout_9.addWidget(self.groupBox, 1, 0, 1, 1)
         self.groupBox_2 = QtWidgets.QGroupBox(self.frame_5)
         self.groupBox_2.setMinimumSize(QtCore.QSize(391, 150))
         self.groupBox_2.setMaximumSize(QtCore.QSize(391, 150))
@@ -223,6 +166,104 @@ class Ui_MainWindow(object):
         self.gridLayout_6.addWidget(self.label_2, 1, 0, 1, 2)
         self.gridLayout_8.addWidget(self.frame_3, 0, 0, 1, 1)
         self.gridLayout_9.addWidget(self.groupBox_2, 4, 0, 1, 1)
+        self.groupBox_3 = QtWidgets.QGroupBox(self.frame_5)
+        self.groupBox_3.setMinimumSize(QtCore.QSize(391, 90))
+        self.groupBox_3.setMaximumSize(QtCore.QSize(391, 90))
+        self.groupBox_3.setStyleSheet("QGroupBox {\n"
+"    border: 1px solid gray;\n"
+"    border-radius: 10px;\n"
+"    margin-top: 1ex; /* leave space at the top for the title */\n"
+"}\n"
+"QGroupBox::title {\n"
+"    color: rgb(203, 203, 203);\n"
+"    subcontrol-origin: margin;\n"
+"    subcontrol-position: top center; /* position at the top center */\n"
+"    padding: 0 3px;\n"
+"}\n"
+"")
+        self.groupBox_3.setObjectName("groupBox_3")
+        self.gridLayout_5 = QtWidgets.QGridLayout(self.groupBox_3)
+        self.gridLayout_5.setObjectName("gridLayout_5")
+        self.frame_2 = QtWidgets.QFrame(self.groupBox_3)
+        self.frame_2.setMinimumSize(QtCore.QSize(365, 57))
+        self.frame_2.setMaximumSize(QtCore.QSize(365, 57))
+        self.frame_2.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_2.setObjectName("frame_2")
+        self.gridLayout_4 = QtWidgets.QGridLayout(self.frame_2)
+        self.gridLayout_4.setObjectName("gridLayout_4")
+        self.fld_proj_name = QtWidgets.QLineEdit(self.frame_2)
+        self.fld_proj_name.setMinimumSize(QtCore.QSize(340, 31))
+        self.fld_proj_name.setMaximumSize(QtCore.QSize(340, 31))
+        self.fld_proj_name.setStyleSheet("QLineEdit{\n"
+"color: rgb(203, 203, 203);\n"
+"background-color: rgb(117, 117, 117);\n"
+"border-radius: 8px;\n"
+"padding: 5px;\n"
+"}")
+        self.fld_proj_name.setText("")
+        self.fld_proj_name.setAlignment(QtCore.Qt.AlignCenter)
+        self.fld_proj_name.setObjectName("fld_proj_name")
+        self.gridLayout_4.addWidget(self.fld_proj_name, 0, 0, 1, 1)
+        self.gridLayout_5.addWidget(self.frame_2, 0, 0, 1, 1)
+        self.gridLayout_9.addWidget(self.groupBox_3, 0, 0, 1, 1)
+        self.groupBox = QtWidgets.QGroupBox(self.frame_5)
+        self.groupBox.setMaximumSize(QtCore.QSize(391, 90))
+        self.groupBox.setStyleSheet("QGroupBox {\n"
+"    border: 1px solid gray;\n"
+"    border-radius: 10px;\n"
+"    margin-top: 1ex; /* leave space at the top for the title */\n"
+"}\n"
+"QGroupBox::title {\n"
+"    color: rgb(203, 203, 203);\n"
+"    subcontrol-origin: margin;\n"
+"    subcontrol-position: top center; /* position at the top center */\n"
+"    padding: 0 3px;\n"
+"}\n"
+"")
+        self.groupBox.setObjectName("groupBox")
+        self.gridLayout_3 = QtWidgets.QGridLayout(self.groupBox)
+        self.gridLayout_3.setObjectName("gridLayout_3")
+        self.frame = QtWidgets.QFrame(self.groupBox)
+        self.frame.setMinimumSize(QtCore.QSize(365, 57))
+        self.frame.setMaximumSize(QtCore.QSize(365, 57))
+        self.frame.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame.setObjectName("frame")
+        self.gridLayout_2 = QtWidgets.QGridLayout(self.frame)
+        self.gridLayout_2.setObjectName("gridLayout_2")
+        self.fld_proj_path = QtWidgets.QLineEdit(self.frame)
+        self.fld_proj_path.setMinimumSize(QtCore.QSize(306, 31))
+        self.fld_proj_path.setMaximumSize(QtCore.QSize(306, 31))
+        self.fld_proj_path.setStyleSheet("QLineEdit{\n"
+"color: rgb(203, 203, 203);\n"
+"background-color: rgb(117, 117, 117);\n"
+"border-top-left-radius: 8px;\n"
+"border-bottom-left-radius: 8px;\n"
+"padding: 5px;\n"
+"}")
+        self.fld_proj_path.setText("")
+        self.fld_proj_path.setAlignment(QtCore.Qt.AlignCenter)
+        self.fld_proj_path.setObjectName("fld_proj_path")
+        self.gridLayout_2.addWidget(self.fld_proj_path, 0, 0, 1, 1)
+        self.btn_proj_dir = QtWidgets.QToolButton(self.frame)
+        self.btn_proj_dir.setMinimumSize(QtCore.QSize(41, 31))
+        self.btn_proj_dir.setStyleSheet("QToolButton { /* all types of tool button */\n"
+"     border-left:1px solid rgb(75, 75, 75);\n"
+"    border-top-right-radius: 8px;\n"
+"    border-bottom-right-radius: 8px;\n"
+"    background-color: qlineargradient(spread:pad, x1:0.489045, y1:1, x2:0.472, y2:0, stop:0 rgba(111, 111, 111, 255), stop:1 rgba(155, 155, 155, 255));\n"
+"}\n"
+"QToolButton:pressed {\n"
+"    background-color: qlineargradient(spread:pad, x1:0.489045, y1:1, x2:0.472, y2:0, stop:0 rgba(158, 158, 158, 255), stop:1 rgba(203, 203, 203, 255));\n"
+"}\n"
+"QToolButton:hover {\n"
+"    background-color: qlineargradient(spread:pad, x1:0.489045, y1:1, x2:0.472, y2:0, stop:0 rgba(158, 158, 158, 255), stop:1 rgba(203, 203, 203, 255));\n"
+"}")
+        self.btn_proj_dir.setObjectName("btn_proj_dir")
+        self.gridLayout_2.addWidget(self.btn_proj_dir, 0, 1, 1, 1)
+        self.gridLayout_3.addWidget(self.frame, 0, 0, 1, 1)
+        self.gridLayout_9.addWidget(self.groupBox, 1, 0, 1, 1)
         self.groupBox_4 = QtWidgets.QGroupBox(self.frame_5)
         self.groupBox_4.setMinimumSize(QtCore.QSize(391, 88))
         self.groupBox_4.setMaximumSize(QtCore.QSize(391, 88))
@@ -283,47 +324,6 @@ class Ui_MainWindow(object):
         self.gridLayout_10.addWidget(self.btn_ipa_or_pak_dir, 0, 1, 1, 1)
         self.gridLayout_11.addWidget(self.frame_6, 0, 0, 1, 1)
         self.gridLayout_9.addWidget(self.groupBox_4, 3, 0, 1, 1)
-        self.groupBox_3 = QtWidgets.QGroupBox(self.frame_5)
-        self.groupBox_3.setMinimumSize(QtCore.QSize(391, 90))
-        self.groupBox_3.setMaximumSize(QtCore.QSize(391, 90))
-        self.groupBox_3.setStyleSheet("QGroupBox {\n"
-"    border: 1px solid gray;\n"
-"    border-radius: 10px;\n"
-"    margin-top: 1ex; /* leave space at the top for the title */\n"
-"}\n"
-"QGroupBox::title {\n"
-"    color: rgb(203, 203, 203);\n"
-"    subcontrol-origin: margin;\n"
-"    subcontrol-position: top center; /* position at the top center */\n"
-"    padding: 0 3px;\n"
-"}\n"
-"")
-        self.groupBox_3.setObjectName("groupBox_3")
-        self.gridLayout_5 = QtWidgets.QGridLayout(self.groupBox_3)
-        self.gridLayout_5.setObjectName("gridLayout_5")
-        self.frame_2 = QtWidgets.QFrame(self.groupBox_3)
-        self.frame_2.setMinimumSize(QtCore.QSize(365, 57))
-        self.frame_2.setMaximumSize(QtCore.QSize(365, 57))
-        self.frame_2.setFrameShape(QtWidgets.QFrame.NoFrame)
-        self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame_2.setObjectName("frame_2")
-        self.gridLayout_4 = QtWidgets.QGridLayout(self.frame_2)
-        self.gridLayout_4.setObjectName("gridLayout_4")
-        self.fld_proj_name = QtWidgets.QLineEdit(self.frame_2)
-        self.fld_proj_name.setMinimumSize(QtCore.QSize(340, 31))
-        self.fld_proj_name.setMaximumSize(QtCore.QSize(340, 31))
-        self.fld_proj_name.setStyleSheet("QLineEdit{\n"
-"color: rgb(203, 203, 203);\n"
-"background-color: rgb(117, 117, 117);\n"
-"border-radius: 8px;\n"
-"padding: 5px;\n"
-"}")
-        self.fld_proj_name.setText("")
-        self.fld_proj_name.setAlignment(QtCore.Qt.AlignCenter)
-        self.fld_proj_name.setObjectName("fld_proj_name")
-        self.gridLayout_4.addWidget(self.fld_proj_name, 0, 0, 1, 1)
-        self.gridLayout_5.addWidget(self.frame_2, 0, 0, 1, 1)
-        self.gridLayout_9.addWidget(self.groupBox_3, 0, 0, 1, 1)
         self.tabWidget.addTab(self.stngs, "")
         self.ntfctn = QtWidgets.QWidget()
         self.ntfctn.setStyleSheet("")
@@ -412,6 +412,7 @@ class Ui_MainWindow(object):
         self.frame_7.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_7.setObjectName("frame_7")
         self.gridLayout_13 = QtWidgets.QGridLayout(self.frame_7)
+        self.gridLayout_13.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_13.setObjectName("gridLayout_13")
         self.chb_parse_log = QtWidgets.QCheckBox(self.frame_7)
         self.chb_parse_log.setMinimumSize(QtCore.QSize(108, 31))
@@ -437,51 +438,17 @@ class Ui_MainWindow(object):
 "}")
         self.chb_extract_ipa.setObjectName("chb_extract_ipa")
         self.gridLayout_13.addWidget(self.chb_extract_ipa, 0, 1, 1, 1)
-        self.chb_send_to_email = QtWidgets.QCheckBox(self.frame_7)
-        self.chb_send_to_email.setMinimumSize(QtCore.QSize(108, 31))
-        self.chb_send_to_email.setMaximumSize(QtCore.QSize(108, 31))
-        self.chb_send_to_email.setStyleSheet("QCheckBox{\n"
+        self.chb_unpack_pak = QtWidgets.QCheckBox(self.frame_7)
+        self.chb_unpack_pak.setMinimumSize(QtCore.QSize(108, 31))
+        self.chb_unpack_pak.setMaximumSize(QtCore.QSize(108, 31))
+        self.chb_unpack_pak.setStyleSheet("QCheckBox{\n"
 "color: rgb(203, 203, 203);\n"
 "background-color: rgb(117, 117, 117);\n"
 "border-radius: 8px;\n"
 "padding-left : 8px;\n"
 "}")
-        self.chb_send_to_email.setObjectName("chb_send_to_email")
-        self.gridLayout_13.addWidget(self.chb_send_to_email, 0, 2, 1, 1)
-        self.frame_11 = QtWidgets.QFrame(self.frame_7)
-        self.frame_11.setMinimumSize(QtCore.QSize(360, 60))
-        self.frame_11.setMaximumSize(QtCore.QSize(360, 60))
-        self.frame_11.setFrameShape(QtWidgets.QFrame.NoFrame)
-        self.frame_11.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frame_11.setObjectName("frame_11")
-        self.gridLayout_17 = QtWidgets.QGridLayout(self.frame_11)
-        self.gridLayout_17.setContentsMargins(0, 0, 0, 0)
-        self.gridLayout_17.setSpacing(0)
-        self.gridLayout_17.setObjectName("gridLayout_17")
-        self.label_4 = QtWidgets.QLabel(self.frame_11)
-        self.label_4.setMinimumSize(QtCore.QSize(340, 15))
-        self.label_4.setMaximumSize(QtCore.QSize(340, 15))
-        self.label_4.setStyleSheet("QLabel{    color: rgb(203, 203, 203);}")
-        self.label_4.setObjectName("label_4")
-        self.gridLayout_17.addWidget(self.label_4, 0, 0, 1, 1)
-        self.pb_progress = QtWidgets.QProgressBar(self.frame_11)
-        self.pb_progress.setMinimumSize(QtCore.QSize(330, 15))
-        self.pb_progress.setMaximumSize(QtCore.QSize(340, 15))
-        self.pb_progress.setStyleSheet("QProgressBar {\n"
-"    color: rgb(80, 80, 80);\n"
-"    border: 1px solid grey;\n"
-"    border-radius: 5px;\n"
-"    text-align: center;\n"
-"}\n"
-"\n"
-"QProgressBar::chunk {\n"
-"    background-color: #05B8CC;\n"
-"    width: 10px;\n"
-"}")
-        self.pb_progress.setProperty("value", 50)
-        self.pb_progress.setObjectName("pb_progress")
-        self.gridLayout_17.addWidget(self.pb_progress, 1, 0, 1, 1)
-        self.gridLayout_13.addWidget(self.frame_11, 2, 0, 1, 3)
+        self.chb_unpack_pak.setObjectName("chb_unpack_pak")
+        self.gridLayout_13.addWidget(self.chb_unpack_pak, 0, 2, 1, 1)
         self.chb_get_size = QtWidgets.QCheckBox(self.frame_7)
         self.chb_get_size.setMinimumSize(QtCore.QSize(108, 31))
         self.chb_get_size.setMaximumSize(QtCore.QSize(108, 31))
@@ -493,6 +460,56 @@ class Ui_MainWindow(object):
 "}")
         self.chb_get_size.setObjectName("chb_get_size")
         self.gridLayout_13.addWidget(self.chb_get_size, 1, 0, 1, 1)
+        self.chb_send_to_email = QtWidgets.QCheckBox(self.frame_7)
+        self.chb_send_to_email.setMinimumSize(QtCore.QSize(108, 31))
+        self.chb_send_to_email.setMaximumSize(QtCore.QSize(108, 31))
+        self.chb_send_to_email.setStyleSheet("QCheckBox{\n"
+"color: rgb(203, 203, 203);\n"
+"background-color: rgb(117, 117, 117);\n"
+"border-radius: 8px;\n"
+"padding-left : 8px;\n"
+"}")
+        self.chb_send_to_email.setObjectName("chb_send_to_email")
+        self.gridLayout_13.addWidget(self.chb_send_to_email, 1, 1, 1, 1)
+        self.frame_11 = QtWidgets.QFrame(self.frame_7)
+        self.frame_11.setMinimumSize(QtCore.QSize(365, 57))
+        self.frame_11.setMaximumSize(QtCore.QSize(365, 57))
+        self.frame_11.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.frame_11.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_11.setObjectName("frame_11")
+        self.gridLayout_21 = QtWidgets.QGridLayout(self.frame_11)
+        self.gridLayout_21.setObjectName("gridLayout_21")
+        self.fld_unrealpak_dir = QtWidgets.QLineEdit(self.frame_11)
+        self.fld_unrealpak_dir.setMinimumSize(QtCore.QSize(306, 31))
+        self.fld_unrealpak_dir.setMaximumSize(QtCore.QSize(306, 31))
+        self.fld_unrealpak_dir.setStyleSheet("QLineEdit{\n"
+"color: rgb(203, 203, 203);\n"
+"background-color: rgb(117, 117, 117);\n"
+"border-top-left-radius: 8px;\n"
+"border-bottom-left-radius: 8px;\n"
+"padding: 5px;\n"
+"}")
+        self.fld_unrealpak_dir.setText("")
+        self.fld_unrealpak_dir.setAlignment(QtCore.Qt.AlignCenter)
+        self.fld_unrealpak_dir.setObjectName("fld_unrealpak_dir")
+        self.gridLayout_21.addWidget(self.fld_unrealpak_dir, 0, 0, 1, 1)
+        self.btn_unrealpak_dir = QtWidgets.QToolButton(self.frame_11)
+        self.btn_unrealpak_dir.setMinimumSize(QtCore.QSize(41, 31))
+        self.btn_unrealpak_dir.setStyleSheet("QToolButton { /* all types of tool button */\n"
+"     border-left:1px solid rgb(75, 75, 75);\n"
+"    border-top-right-radius: 8px;\n"
+"    border-bottom-right-radius: 8px;\n"
+"    background-color: qlineargradient(spread:pad, x1:0.489045, y1:1, x2:0.472, y2:0, stop:0 rgba(111, 111, 111, 255), stop:1 rgba(155, 155, 155, 255));\n"
+"}\n"
+"QToolButton:pressed {\n"
+"    background-color: qlineargradient(spread:pad, x1:0.489045, y1:1, x2:0.472, y2:0, stop:0 rgba(158, 158, 158, 255), stop:1 rgba(203, 203, 203, 255));\n"
+"}\n"
+"QToolButton:hover {\n"
+"    background-color: qlineargradient(spread:pad, x1:0.489045, y1:1, x2:0.472, y2:0, stop:0 rgba(158, 158, 158, 255), stop:1 rgba(203, 203, 203, 255));\n"
+"}")
+        self.btn_unrealpak_dir.setObjectName("btn_unrealpak_dir")
+        self.gridLayout_21.addWidget(self.btn_unrealpak_dir, 0, 1, 1, 1)
+        self.gridLayout_13.addWidget(self.frame_11, 2, 0, 1, 3)
         self.gridLayout_14.addWidget(self.frame_7, 0, 0, 1, 1)
         self.gridLayout_15.addWidget(self.groupBox_6, 2, 0, 1, 1)
         self.frame_10 = QtWidgets.QFrame(self.frame_8)
@@ -613,29 +630,31 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Building Notification"))
-        self.groupBox.setTitle(_translate("MainWindow", "Game Directory"))
-        self.fld_proj_path.setPlaceholderText(_translate("MainWindow", "Select Game Directory"))
-        self.btn_proj_dir.setText(_translate("MainWindow", "..."))
         self.groupBox_2.setTitle(_translate("MainWindow", "Authorization"))
         self.label.setText(_translate("MainWindow", "Email :"))
         self.fld_email.setPlaceholderText(_translate("MainWindow", "Enter Email"))
         self.fld_password.setPlaceholderText(_translate("MainWindow", "Enter Password"))
         self.btn_connection.setText(_translate("MainWindow", "Test Connection"))
         self.label_2.setText(_translate("MainWindow", "Password :"))
+        self.groupBox_3.setTitle(_translate("MainWindow", "Project Name"))
+        self.fld_proj_name.setPlaceholderText(_translate("MainWindow", "Enter Project Name"))
+        self.groupBox.setTitle(_translate("MainWindow", "Game Directory"))
+        self.fld_proj_path.setPlaceholderText(_translate("MainWindow", "Select Game Directory"))
+        self.btn_proj_dir.setText(_translate("MainWindow", "..."))
         self.groupBox_4.setTitle(_translate("MainWindow", "IPA or PAK Directory"))
         self.fld_ipa_or_pak_dir.setPlaceholderText(_translate("MainWindow", "Select IPA or PAK Directory"))
         self.btn_ipa_or_pak_dir.setText(_translate("MainWindow", "..."))
-        self.groupBox_3.setTitle(_translate("MainWindow", "Project Name"))
-        self.fld_proj_name.setPlaceholderText(_translate("MainWindow", "Enter Project Name"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.stngs), _translate("MainWindow", "Settings"))
         self.groupBox_5.setTitle(_translate("MainWindow", "Build Time"))
         self.timeEdit.setDisplayFormat(_translate("MainWindow", "HH:mm:ss"))
         self.groupBox_6.setTitle(_translate("MainWindow", "Options"))
         self.chb_parse_log.setText(_translate("MainWindow", "Parse Log"))
-        self.chb_extract_ipa.setText(_translate("MainWindow", "Unpak build"))
-        self.chb_send_to_email.setText(_translate("MainWindow", "Sent to Email"))
-        self.label_4.setText(_translate("MainWindow", "Parse log..."))
+        self.chb_extract_ipa.setText(_translate("MainWindow", "Extract IPA"))
+        self.chb_unpack_pak.setText(_translate("MainWindow", "Unpak PAK"))
         self.chb_get_size.setText(_translate("MainWindow", "Get Size"))
+        self.chb_send_to_email.setText(_translate("MainWindow", "Send to Email"))
+        self.fld_unrealpak_dir.setPlaceholderText(_translate("MainWindow", "Select UnrealPak Directory"))
+        self.btn_unrealpak_dir.setText(_translate("MainWindow", "..."))
         self.btn_cancel.setText(_translate("MainWindow", "Cancel"))
         self.btn_start.setText(_translate("MainWindow", "Start"))
         self.groupBox_7.setTitle(_translate("MainWindow", "Send to..."))

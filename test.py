@@ -48,5 +48,8 @@ class UnpakingProject:
                         size_statistic += size_statistic.join("IPA Size - {0}Mb\n".format(ipa_size / 1000000))
         return size_statistic
 
-a = "/Users/Shared/Epic Games/UE_4.15/Engine/Binaries/Mac/UnrealPak /Users/aleksandr/UE4_projects/PyPlugin/IPA/extractIPA/Payload/LiS.app/cookeddata/lis/content/paks/lis-ios.pak -extract /Users/aleksandr/UE4_projects/PyPlugin/IPA"
-os.system(a)
+
+for dirpath, dirnames, filenames in os.walk("/Users/aleksandr/UE4_projects/PyPlugin/IPA"):
+    if dirpath.find("Content/Packages") != -1:
+        print(dirpath)
+        break

@@ -5,18 +5,18 @@ class UserSettings():
         self.config_filename = "config"
         self.config_json = {}
 
-    def saveSettings(self, toFile = False, **kwargs):
+    def saveSettings(self, toFile, **kwargs):
         if toFile is False:
             self.config_json.update(kwargs)
             return str(kwargs)
         elif toFile is True:
-            if self.config_json is True:
-                with open(os.path.abspath(os.path.curdir) + "/" + self.config_filename, "w") as config:
-                    json.dump(self.config_json, config, indent=4)
+            with open(os.path.abspath(os.path.curdir) + "/" + self.config_filename, "w") as config:
+                json.dump(self.config_json, config, indent=4)
 
     def checkSettings(self):
         try:
             with open(os.path.abspath(os.path.curdir) + "/" + self.config_filename, "r") as config:
-                return json.load(config)
+                self.config_json = json.load(config)
+                return self.config_json
         except FileNotFoundError:
             return {}
