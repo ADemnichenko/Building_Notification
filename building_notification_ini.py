@@ -212,7 +212,6 @@ class Options():
                                         "Build Time -  {0}\n".format(self.copyUiClass.timeEdit.text())
                         self.copyUiClass.parse_log.terminate()
                         self.copyUiClass.btn_start.setDisabled(False)
-
                         self.extractIPA()
                         self.unpackPAK()
                         self.getSize(".ipa")
@@ -220,7 +219,7 @@ class Options():
                         self.getPackageSize()
                         self.sendMessage()
                         self.copyUiClass.checkBoxStates(False)
-                        self.chb_parse_log.setDisabled(False)
+                        self.copyUiClass.chb_parse_log.setDisabled(False)
                     elif self.build_status is False:
                         self.copyUiClass.parse_log.terminate()
                         self.copyUiClass.btn_start.setDisabled(False)
@@ -228,7 +227,7 @@ class Options():
                                         "Build Time -  {0}\n".format(self.copyUiClass.timeEdit.text())
                         self.sendMessage()
                         self.copyUiClass.checkBoxStates(False)
-                        self.chb_parse_log.setDisabled(False)
+                        self.copyUiClass.chb_parse_log.setDisabled(False)
 
     def unpackPAK(self):
         if self.copyUiClass.chb_unpack_pak.isChecked():
@@ -259,7 +258,7 @@ class Options():
         total_size = 0
         if self.copyUiClass.chb_get_size.isChecked():
             for dirpath, dirnames, filenames in os.walk("{0}/unpackPAK".format(self.copyUiClass.fld_ipa_or_pak_dir.text().strip())):
-                if dirpath.find("Content\Packages") != -1:
+                if dirpath.find("Content/Packages") != -1:
                     for dirname in os.listdir(dirpath):
                         for drp, drn, fn in os.walk("{0}/{1}".format(dirpath, dirname)):
                             for f in fn:
